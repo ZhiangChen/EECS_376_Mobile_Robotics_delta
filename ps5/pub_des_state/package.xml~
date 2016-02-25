@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-    <name>mobot_pub_des_state</name>
+    <name>pub_des_state</name>
     <version>0.0.0</version>
     <description>The pub_des_state package</description>
   

@@ -1,4 +1,4 @@
-#include <pub_des_state/pub_des_state.h>
+#include <pub_des_state/ps5_pub_des_state.h>
 //ExampleRosClass::ExampleRosClass(ros::NodeHandle* nodehandle):nh_(*nodehandle)
 
 DesStatePublisher::DesStatePublisher(ros::NodeHandle& nh) : nh_(nh) {
@@ -38,6 +38,10 @@ DesStatePublisher::DesStatePublisher(ros::NodeHandle& nh) : nh_(nh) {
     halt_state_ = current_des_state_;
     seg_start_state_ = current_des_state_;
     seg_end_state_ = current_des_state_;
+
+    subgoals_.clear();
+
+    estop_subscriber_ = nh.subscribe("motors_enabled", 1, &DesStatePublisher::triggerCallback,this);
 }
 
 void DesStatePublisher::initializeServices() {
@@ -170,7 +174,14 @@ void DesStatePublisher::pub_next_state() {
             // for rqt_plot visualization            
             des_psi_ = trajBuilder_.convertPlanarQuat2Psi(current_pose_.pose.orientation);
             float_msg_.data = des_psi_;
-            des_psi_publisher_.publish(float_msg_); 
+            des_psi_publisher_.publish(float_msg_);
+
+            subgoals_.clear();
+            for (int i=traj_pt_i_;i<npts_traj_;i++)
+            {
+                subgoals_.push_back(des_state_vec_[i]);
+            }
+
             traj_pt_i_++; // increment counter to prep for next point of plan
             //check if we have clocked out all of our planned states:
             if (traj_pt_i_ >= npts_traj_) {
@@ -196,6 +207,13 @@ void DesStatePublisher::pub_next_state() {
                 npts_traj_ = des_state_vec_.size();
                 motion_mode_ = PURSUING_SUBGOAL; // got a new plan; change mode to pursue it
                 ROS_INFO("computed new trajectory to pursue");
+
+                subgoals_.clear();
+                for (int i=traj_pt_i_;i<npts_traj_;i++)
+                {
+                    subgoals_.push_back(des_state_vec_[i]);
+                }
+
             } else { //no new goal? stay halted in this mode 
                 // by simply reiterating the last state sent (should have zero vel)
                 desired_state_publisher_.publish(seg_end_state_);

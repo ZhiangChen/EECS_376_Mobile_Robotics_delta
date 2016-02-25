@@ -2,7 +2,7 @@
 #define PUB_DES_STATE_H_
 
 #include <queue>
-#include <traj_builder/traj_builder.h> //has almost all the headers we need
+#include <shaun_traj/shaun_traj.h> //has almost all the headers we need
 #include <std_msgs/Float64.h>
 #include <std_msgs/Bool.h>
 #include <std_srvs/Trigger.h>
@@ -31,6 +31,7 @@ private:
     //some class member variables:
     nav_msgs::Path path_;
     std::vector<nav_msgs::Odometry> des_state_vec_;
+    std::vector<nav_msgs::Odometry> subgoals_;
     nav_msgs::Odometry des_state_;
     nav_msgs::Odometry halt_state_;
     nav_msgs::Odometry seg_end_state_;
@@ -65,8 +66,9 @@ private:
     ros::Publisher desired_state_publisher_;
     ros::Publisher des_psi_publisher_;
     
+    
     //a trajectory-builder object; 
-    TrajBuilder trajBuilder_; 
+    ShaunTraj trajBuilder_; 
 
     // member methods:
     void initializePublishers();
@@ -78,6 +80,10 @@ private:
 
 public:
     DesStatePublisher(ros::NodeHandle& nh);//constructor
+	
+	bool get_subgoal(std::vector<nav_msgs::Odometry> &subgoals)
+	{subgoals = subgoals_;}
+
     int get_motion_mode() {return motion_mode_;}
     void set_motion_mode(int mode) {motion_mode_ = mode;}
     bool get_estop_trigger() { return e_stop_trigger_;}
