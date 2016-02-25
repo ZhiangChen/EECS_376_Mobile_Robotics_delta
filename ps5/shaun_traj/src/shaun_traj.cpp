@@ -406,6 +406,7 @@ void ShaunTraj::build_triangular_spin_traj(geometry_msgs::PoseStamped start_pose
 void ShaunTraj::build_braking_traj(geometry_msgs::PoseStamped start_pose,
         std::vector<nav_msgs::Odometry> &vec_of_states) {
     int n;	
+    
 	for(int i=0;i<vec_of_states.size();i++){
 		if(start_pose.pose.position.x == vec_of_states[i].pose.pose.position.x && start_pose.pose.position.y == vec_of_states[i].pose.pose.position.y && start_pose.pose.orientation.z == vec_of_states[i].pose.pose.orientation.z)
 		{
@@ -413,13 +414,16 @@ void ShaunTraj::build_braking_traj(geometry_msgs::PoseStamped start_pose,
 			break;
 		}
 	}
+    if(vec_of_states.size()==0)
+        return;
+ROS_INFO("the number of current states is %d", vec_of_states.size());
     nav_msgs::Odometry des_state;
     des_state.twist.twist = vec_of_states[n].twist.twist;
     vec_of_states.clear();
     des_state.header = start_pose.header; //really, want to copy the frame_id
     des_state.pose.pose = start_pose.pose; //start from here
-    double a_max = 0.8;
-    double alpha_max = 0.4;
+    double a_max = default_accel_max;
+    double alpha_max = default_alpha_max ;
     double x_start = start_pose.pose.position.x;
     double y_start = start_pose.pose.position.y;
     double x_des = x_start; //start from here
@@ -475,8 +479,9 @@ void ShaunTraj::build_braking_traj(geometry_msgs::PoseStamped start_pose,
     	des_state.twist.twist = halt_twist_; // insist on starting from rest
     	vec_of_states.push_back(des_state);
 	}
+    ROS_INFO("the nubmer of updated states is %d",vec_of_states.size());
     
-    if (des_state.twist.twist.angular.z!=0 && des_state.twist.twist.linear.x!=0){
+ /*   if (des_state.twist.twist.angular.z!=0 && des_state.twist.twist.linear.x!=0){
 	w = des_state.twist.twist.angular.z;
 	v = des_state.twist.twist.linear.x;
 	double t_ramp1 = fabs(w / alpha_max);
@@ -576,7 +581,7 @@ void ShaunTraj::build_braking_traj(geometry_msgs::PoseStamped start_pose,
 				}
 			}
 		}
-	}
+	}*/
 }
 
 //main fnc of this library: constructs a spin-in-place reorientation to

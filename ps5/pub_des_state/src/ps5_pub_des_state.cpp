@@ -118,6 +118,7 @@ void DesStatePublisher::pub_next_state() {
         e_stop_trigger_ = false; //reset trigger
         //compute a halt trajectory
         trajBuilder_.build_braking_traj(current_pose_, des_state_vec_);
+        ROS_INFO("finished braking interpolation");
         motion_mode_ = HALTING;
         traj_pt_i_ = 0;
         npts_traj_ = des_state_vec_.size();
@@ -143,6 +144,8 @@ void DesStatePublisher::pub_next_state() {
         case HALTING: //e-stop service callback sets this mode
             //if need to brake from e-stop, service will have computed
             // new des_state_vec_, set indices and set motion mode;
+            if(des_state_vec_.size()==0)
+                break;
             current_des_state_ = des_state_vec_[traj_pt_i_];
             current_des_state_.header.stamp = ros::Time::now();
             desired_state_publisher_.publish(current_des_state_);
@@ -228,6 +231,13 @@ void DesStatePublisher::pub_next_state() {
 }
 
 void DesStatePublisher::triggerCallback(const std_msgs::Bool& e_stopTrigger ) {
+    if(e_stopTrigger.data==true)
+        ROS_INFO("estop is triggered");
+    else
+    {
+        ROS_INFO("estop is cleared");
+        e_stop_reset_=true;
+    }
    e_stop_trigger_ = e_stopTrigger.data;
     }
 
