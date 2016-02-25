@@ -19,7 +19,7 @@ catkin_simple()
 
 # example boost usage
 find_package(Boost REQUIRED COMPONENTS system thread)
-find_package(mobot_pub_des_state)
+find_package(pub_des_state)
 
 # C++0x support - not quite the same as final C++11!
 # use carefully;  can interfere with point-cloud library
