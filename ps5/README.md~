@@ -1,16 +1,12 @@
-Chen: interface
-Xiangyu: braking
-Ananya: hardware estop monitoring and recoverying (new node required)
-subscriber for hardware estop topic
-client for estopServiceCallback
-client for clearEstopServiceCallback
+# PS5 Trajectory Planning
 
-Evan: lidar alarm monitoring and recoverying (new node required)
-subscriber for lidar alarm
-client for estopServiceCallback
-client for clearEstopServiceCallback
+<p>Chen: interface</p>
+<p>Xiangyu: braking</p>
+<p>Ananya: hardware estop monitoring and recoverying </p>
+<p>Evan: lidar alarm monitoring and recoverying</p>
 
-1) check the interface
+
+##1) check the interface
 roslaunch gazebo_ros empty_world.launch
 roslaunch mobot_urdf mobot_w_lidar.launch
 rosrun pub_des_state ps5_open_loop_controller
@@ -19,36 +15,29 @@ rosrun obstacle_detecting obstacle_detecting
 rosrun traj_planning traj_planning
 
 
-2) check the braking function
-estop_service: std_srvs/Trigger:
----
-bool success
-string message
+##2) check the braking function
+<p>estop_service: std_srvs/Trigger:</p>
+<p>---</p>
+<p>bool success</p>
+<p>string message</p>
 
-rosservice call estop_service 
+<p>rosservice call estop_service</p>
 
-3) check lidar alarm
-"lidar_alarm"
-"estop_service"
+##3) check lidar alarm
+<p>"lidar_alarm"</p>
+<p>"estop_service"</p>
 
-package: "obstacle_detecting"
-node: "obstacle_detecting"
-rosrun traj_planning ps5_lidar_alarm
-(rostopic pub lidar_alarm std_msgs/Bool true)
-run node for receiving alarm, preserving current pose and subgoals, triggering e-stop, waiting for 5 seconds, and making a turn to continue subgoals or just continuing subgoals directly.
+<p>package: "obstacle_detecting"</p>
+<p>node: "obstacle_detecting"</p>
+<p>rosrun traj_planning ps5_lidar_alarm</p>
+<p>(rostopic pub lidar_alarm std_msgs/Bool true)</p>
+<p>run node for receiving alarm, triggering e-stop, waiting for 5 seconds, continuing subgoals directly when the obstacles are removed.
 
-topic: "obstacle"
-bool obs
-subgoals
 
-4) check hardware e-stop
-package: "hardware_trigger"
-node: "hardware_trigger"
-subscriber: topic: "motors_enabled": std_msgs/Bool
-subscriber: topic: "   ": pose and subgoals
-service client: topic "estop_service"
+##4) check hardware e-stop
+<p>subscriber: topic: "motors_enabled": std_msgs/Bool</p>
 
-run node for detecting hardware e-stop. if hardware e-stop is triggered, preserve current pose and subgoals. then trigger e-stop. wait for hardware e-stop clearing. When clearing, ask for continuing subgoals or resetting. 
+<p>run node for detecting hardware e-stop. if hardware e-stop is triggered, then trigger e-stop. wait for hardware e-stop clearing. When clearing, ask for continuing subgoals or resetting. </p>
 
 
 

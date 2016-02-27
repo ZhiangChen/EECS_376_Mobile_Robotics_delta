@@ -31,7 +31,7 @@ rosrun traj_planning traj_planning
 <p>node: "obstacle_detecting"</p>
 <p>rosrun traj_planning ps5_lidar_alarm</p>
 <p>(rostopic pub lidar_alarm std_msgs/Bool true)</p>
-<p>run node for receiving alarm, triggering e-stop, waiting for 5 seconds, continuing subgoals directly when the obstacles are removed.
+<p>run node for receiving alarm, triggering e-stop, waiting for 5 seconds, continuing subgoals directly when the obstacles are removed.</p>
 
 
 ##4) check hardware e-stop
