@@ -14,9 +14,10 @@ client for clearEstopServiceCallback
 roslaunch gazebo_ros empty_world.launch
 roslaunch mobot_urdf mobot_w_lidar.launch
 rosrun pub_des_state ps5_open_loop_controller
-rosrun traj_planning traj_planning
 rosrun traj_planning ps5_lidar_alarm
 rosrun obstacle_detecting obstacle_detecting
+rosrun traj_planning traj_planning
+
 
 2) check the braking function
 estop_service: std_srvs/Trigger:
