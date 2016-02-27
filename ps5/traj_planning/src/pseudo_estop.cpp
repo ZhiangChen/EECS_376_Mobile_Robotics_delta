@@ -18,9 +18,9 @@ int main(int argc, char **argv) {
     while (ros::ok()) 
     {
 	    char d='d';	
-   		while(d!='y' && d!='x')
+   		while(d!='y' && d!='x' && d!='q')
         {
-            cout<<"please input y to trigger estop, or x to clear estop:"<<endl;
+            cout<<"please input y to trigger estop, x to clear estop, or q to quit:"<<endl;
             cin>>d;	
         }   
         if (d=='y')
@@ -33,6 +33,8 @@ int main(int argc, char **argv) {
             estop.data=false;
             my_publisher_object.publish(estop);
         }
+        if (d=='q')
+            return 0;
 
     }
 }
