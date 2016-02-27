@@ -479,7 +479,7 @@ ROS_INFO("the number of current states is %d", vec_of_states.size());
     	des_state.twist.twist = halt_twist_; // insist on starting from rest
     	vec_of_states.push_back(des_state);
 	}
-    ROS_INFO("the nubmer of updated states is %d",vec_of_states.size());
+    ROS_INFO("the number of updated states is %d",vec_of_states.size());
     
  /*   if (des_state.twist.twist.angular.z!=0 && des_state.twist.twist.linear.x!=0){
 	w = des_state.twist.twist.angular.z;

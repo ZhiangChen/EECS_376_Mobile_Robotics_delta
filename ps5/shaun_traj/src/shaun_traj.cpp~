@@ -422,8 +422,8 @@ ROS_INFO("the number of current states is %d", vec_of_states.size());
     vec_of_states.clear();
     des_state.header = start_pose.header; //really, want to copy the frame_id
     des_state.pose.pose = start_pose.pose; //start from here
-    double a_max = 0.8;
-    double alpha_max = 0.4;
+    double a_max = default_accel_max;
+    double alpha_max = default_alpha_max ;
     double x_start = start_pose.pose.position.x;
     double y_start = start_pose.pose.position.y;
     double x_des = x_start; //start from here
