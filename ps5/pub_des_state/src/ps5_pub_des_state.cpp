@@ -1,4 +1,5 @@
 #include <pub_des_state/ps5_pub_des_state.h>
+#include <iostream>
 //ExampleRosClass::ExampleRosClass(ros::NodeHandle* nodehandle):nh_(*nodehandle)
 
 DesStatePublisher::DesStatePublisher(ros::NodeHandle& nh) : nh_(nh) {
@@ -118,7 +119,7 @@ void DesStatePublisher::pub_next_state() {
         e_stop_trigger_ = false; //reset trigger
         //compute a halt trajectory
         trajBuilder_.build_braking_traj(current_pose_, des_state_vec_);
-        ROS_INFO("finished braking interpolation");
+        //ROS_INFO("finished braking interpolation");
         motion_mode_ = HALTING;
         traj_pt_i_ = 0;
         npts_traj_ = des_state_vec_.size();
@@ -237,7 +238,48 @@ void DesStatePublisher::triggerCallback(const std_msgs::Bool& e_stopTrigger ) {
     {
         ROS_INFO("estop is cleared");
         e_stop_reset_=true;
+        char d='d';
+        while(d!='y' && d!='x' && d!='a')
+        {
+            std::cout<<"please input y to continue the subgoals;"<<std::endl<<"x to stop here;"<<std::endl;
+            std::cout<<"or a to replace a new path:"<<std::endl;
+            std::cin>>d; 
+        }
+
+        if (d=='x' || d=='a')
+        {
+            ROS_WARN("flushing path queue");
+            while (!path_queue_.empty())
+            {
+                path_queue_.pop();
+            }
+            while(d=='a')
+            {
+                double x, y, theta;
+                char c='c';
+                std::cout<<"please input the next goal's x, y, theta, or input -100 for x to quit:"<<std::endl;
+                std::cin>>x>>y>>theta;
+                if (x<-99 && x>-101)
+                {
+                    c='x';
+                    d='y';
+                }
+                
+                while(c!='y' && c!='x')
+                {
+                    std::cout<<"next goal is ("<<x<<","<<y<<","<<theta<<"), pls input y to confirm, or x to cancel:"<<std::endl;
+                    std::cin>>c;
+                }
+                if (c=='y')
+                {
+                    append_path_queue(x,y,theta);
+                    ROS_INFO("path added.");
+                }
+            }
+        }
+
     }
-   e_stop_trigger_ = e_stopTrigger.data;
-    }
+    ROS_INFO("reset_trigger done.");
+    e_stop_trigger_ = e_stopTrigger.data;
+}
 

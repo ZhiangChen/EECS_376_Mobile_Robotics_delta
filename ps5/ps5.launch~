@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+<include file ="$(find gazebo_ros)/launch/empty_world.launch"/>
+<include file ="$(find mobot_urdf)/launch/mobot_w_lidar.launch"/>
+<node name="ps5_open_loop_controller" pkg="pub_des_state" type="ps5_open_loop_controller"/>
+<node name="ps5_lidar_alarm" pkg="traj_planning" type="ps5_lidar_alarm"/>
+<node name="obstacle_detecting" pkg="obstacle_detecting" type="obstacle_detecting"/>
+</launch>

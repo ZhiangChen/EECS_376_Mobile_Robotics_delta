@@ -5,14 +5,18 @@
 <p>Ananya: hardware estop monitoring and recoverying </p>
 <p>Evan: lidar alarm monitoring and recoverying</p>
 
+# Usage
+<p>roslaunch traj_planning ps5.launch</p>
+<p>rosrun traj_planning pseudo_estop</p>
+<p>rosrun traj_planning traj_planning</p>
 
 ##1) check the interface
-roslaunch gazebo_ros empty_world.launch
-roslaunch mobot_urdf mobot_w_lidar.launch
-rosrun pub_des_state ps5_open_loop_controller
-rosrun traj_planning ps5_lidar_alarm
-rosrun obstacle_detecting obstacle_detecting
-rosrun traj_planning traj_planning
+<p>roslaunch gazebo_ros empty_world.launch</p>
+<p>roslaunch mobot_urdf mobot_w_lidar.launch</p>
+<p>rosrun pub_des_state ps5_open_loop_controller</p>
+<p>rosrun traj_planning ps5_lidar_alarm</p>
+<p>rosrun obstacle_detecting obstacle_detecting</p>
+<p>rosrun traj_planning traj_planning</p>
 
 
 ##2) check the braking function
