@@ -117,7 +117,7 @@ void DesStatePublisher::pub_next_state() {
     // first test if an e-stop has been triggered
     if (e_stop_trigger_) {
         e_stop_trigger_ = false; //reset trigger
-        //compute a halt trajectory
+        //compute a triggerhalt trajectory
         trajBuilder_.build_braking_traj(current_pose_, des_state_vec_);
         //ROS_INFO("finished braking interpolation");
         motion_mode_ = HALTING;
@@ -231,7 +231,7 @@ void DesStatePublisher::pub_next_state() {
     }
 }
 
-bool estop_state=false;
+bool estop_state=true;
 
 void DesStatePublisher::triggerCallback(const std_msgs::Bool& e_stopTrigger ) {
 
@@ -244,7 +244,7 @@ void DesStatePublisher::triggerCallback(const std_msgs::Bool& e_stopTrigger ) {
 		estop_state = e_stopTrigger.data;
 	}
 
-    if(e_stopTrigger.data==true)
+    if(e_stopTrigger.data==false)
         ROS_INFO("estop is triggered");
     else
     {
@@ -292,6 +292,6 @@ void DesStatePublisher::triggerCallback(const std_msgs::Bool& e_stopTrigger ) {
 
     }
     ROS_INFO("reset_trigger done.");
-    e_stop_trigger_ = e_stopTrigger.data;
+    e_stop_trigger_ = ~e_stopTrigger.data;
 }
 

@@ -231,8 +231,20 @@ void DesStatePublisher::pub_next_state() {
     }
 }
 
+bool estop_state=true;
+
 void DesStatePublisher::triggerCallback(const std_msgs::Bool& e_stopTrigger ) {
-    if(e_stopTrigger.data==true)
+
+	if(estop_state==e_stopTrigger.data)
+	{
+		return;
+	}
+	else
+	{
+		estop_state = e_stopTrigger.data;
+	}
+
+    if(e_stopTrigger.data==false)
         ROS_INFO("estop is triggered");
     else
     {
@@ -280,6 +292,6 @@ void DesStatePublisher::triggerCallback(const std_msgs::Bool& e_stopTrigger ) {
 
     }
     ROS_INFO("reset_trigger done.");
-    e_stop_trigger_ = e_stopTrigger.data;
+    e_stop_trigger_ = ~e_stopTrigger.data;
 }
 
