@@ -5,6 +5,10 @@
 <p>Ananya: hardware estop monitoring and recoverying </p>
 <p>Evan: lidar alarm monitoring and recoverying</p>
 
+# Usage
+<p>roslaunch traj_planning ps5.launch</p>
+<p>rosrun traj_planning pseudo_estop</p>
+<p>rosrun traj_planning traj_planning</p>
 
 ##1) check the interface
 <p>roslaunch gazebo_ros empty_world.launch</p>

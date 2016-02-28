@@ -3,5 +3,5 @@
 <node name="ps5_open_loop_controller" pkg="pub_des_state" type="ps5_open_loop_controller"/>
 <node name="ps5_lidar_alarm" pkg="traj_planning" type="ps5_lidar_alarm"/>
 <node name="obstacle_detecting" pkg="obstacle_detecting" type="obstacle_detecting"/>
-<remap from="base_laser1_scan" to="scan"/>
+<remap from="scan" to="base_laser1_scan"/>
 </launch>
