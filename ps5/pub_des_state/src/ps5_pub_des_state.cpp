@@ -127,13 +127,13 @@ void DesStatePublisher::pub_next_state() {
     //or if an e-stop has been cleared
     if (e_stop_reset_) {
         e_stop_reset_ = false; //reset trigger
-        if (motion_mode_ != E_STOPPED) {
-            ROS_WARN("e-stop reset while not in e-stop mode");
-        }
+       // if (motion_mode_ != E_STOPPED) {
+         //   ROS_WARN("e-stop reset while not in e-stop mode");
+        //}
         //OK...want to resume motion from e-stopped mode;
-        else {
+        //else {
             motion_mode_ = DONE_W_SUBGOAL; //this will pick up where left off
-        }
+        //}
     }
     
     //state machine; results in publishing a new desired state
@@ -164,7 +164,8 @@ void DesStatePublisher::pub_next_state() {
                 halt_state_.twist.twist = halt_twist_;
                 seg_end_state_ = halt_state_;
                 current_des_state_ = seg_end_state_;
-                motion_mode_ = E_STOPPED; //change state to remain halted                    
+                motion_mode_ = E_STOPPED; //change state to remain halted   \
+                ROS_INFO("halted"):                 
             }
             break;
 

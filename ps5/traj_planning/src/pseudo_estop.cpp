@@ -12,7 +12,7 @@ int main(int argc, char **argv) {
     
     std_msgs::Bool estop;
 
-    estop.data = false;
+    estop.data = true;
     
     // do work here in infinite loop (desired for this example), but terminate if detect ROS has faulted
     while (ros::ok()) 
@@ -25,12 +25,12 @@ int main(int argc, char **argv) {
         }   
         if (d=='y')
         {
-            estop.data=true;
+            estop.data=false;
             my_publisher_object.publish(estop);
         }
         if (d=='x')
         {
-            estop.data=false;
+            estop.data=true;
             my_publisher_object.publish(estop);
         }
         if (d=='q')
