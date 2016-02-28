@@ -231,7 +231,19 @@ void DesStatePublisher::pub_next_state() {
     }
 }
 
+bool estop_state=false;
+
 void DesStatePublisher::triggerCallback(const std_msgs::Bool& e_stopTrigger ) {
+
+	if(estop_state==e_stopTrigger.data)
+	{
+		return;
+	}
+	else
+	{
+		estop_state = e_stopTrigger.data;
+	}
+
     if(e_stopTrigger.data==true)
         ROS_INFO("estop is triggered");
     else

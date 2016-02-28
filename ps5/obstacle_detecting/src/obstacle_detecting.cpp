@@ -33,7 +33,8 @@ int main(int argc, char **argv) {
 	
 		if (g_lidar_alarm==true){ //If the alarm goes off, the e_stop needs to be triggered
 			if (client.call(srv)){ //triggers e_stop
-				ROS_INFO("waiting for the obstacle");
+				ROS_WARN("obstacles ahead");
+				ROS_INFO("waiting for the obstacle removing.");
 				ros::Duration(5.0).sleep();
 				ros::spinOnce();
 				if (g_lidar_alarm==false){ //If the alarm turns off, the e_stop is not triggered
