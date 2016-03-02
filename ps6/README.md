@@ -4,6 +4,6 @@ Jinx will start in front of the elevator near the lab door, approach the door, t
 
 # Usage
 <p>roslaunch ps6 ps6.launch</p>
-<p>rosrun traj_planning traj_planning</p>
+<p>rosrun ps6 ps6</p>
 
 
