@@ -1,13 +1,12 @@
 # PS5 Trajectory Planning
 
-<p>Chen: interface and frame</p>
+<p>Chen: interface</p>
 <p>Xiangyu: braking</p>
 <p>Ananya: hardware estop monitoring and recoverying </p>
 <p>Evan: lidar alarm monitoring and recoverying</p>
 
 # Usage
-<p>roslaunch traj_planning ps5_jinx.launch</p>
-<p>roslaunch traj_planning ps5.launch (for gazebo)</p>
+<p>roslaunch traj_planning ps5.launch  (for gazebo)</p>
 <p>rosrun traj_planning pseudo_estop</p>
 <p>rosrun traj_planning traj_planning</p>
 
