@@ -16,7 +16,7 @@ find_package(catkin_simple REQUIRED)
 #add_definitions(${EIGEN_DEFINITIONS})
 
 catkin_simple()
- 
+
 # example boost usage
 find_package(Boost REQUIRED COMPONENTS system thread)
 find_package(pub_des_state)
