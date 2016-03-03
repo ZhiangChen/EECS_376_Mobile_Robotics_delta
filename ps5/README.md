@@ -7,6 +7,7 @@
 
 # Usage
 <p>roslaunch traj_planning ps5.launch  (for gazebo)</p>
+<p>roslaunch traj_planning ps5_jinx.launch</p>
 <p>rosrun traj_planning pseudo_estop</p>
 <p>rosrun traj_planning traj_planning</p>
 
