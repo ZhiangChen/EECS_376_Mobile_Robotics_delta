@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<launch>
+<node name="ps5_open_loop_controller" pkg="pub_des_state" type="ps5_open_loop_controller"/>
+
+</launch>
