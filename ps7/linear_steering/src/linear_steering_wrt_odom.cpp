@@ -67,7 +67,11 @@ SteeringController::SteeringController(ros::NodeHandle* nodehandle):nh_(*nodehan
     twist_cmd_.angular.z = 0.0;
 
     twist_cmd2_.twist = twist_cmd_; // copy the twist command into twist2 message
-    twist_cmd2_.header.stamp = ros::Time::now(); // look up the time and put it in the header  
+    twist_cmd2_.header.stamp = ros::Time::now(); // look up the time and put it in the header 
+
+     des_state_x_ = des_state_.pose.pose.position.x;
+     des_state_y_ = des_state_.pose.pose.position.y;
+     des_state_phi_ = convertPlanarQuat2Phi(des_state_.pose.pose.orientation) ;
 
 }
 
@@ -119,6 +123,7 @@ void SteeringController::odomCallback(const nav_msgs::Odometry& odom_rcvd) {
     // let's put odom x,y in an Eigen-style 2x1 vector; convenient for linear algebra operations
     //odom_xy_vec_(0) = odom_x_;
     //odom_xy_vec_(1) = odom_y_;   
+
 }
 
 void SteeringController::desStateCallback(const nav_msgs::Odometry& des_state_rcvd) {
@@ -209,6 +214,9 @@ void SteeringController::lin_steering_algorithm() {
     // DEBUG OUTPUT...
     ROS_INFO("des_state_phi, odom_phi, heading err = %f, %f, %f", des_state_phi_,odom_phi_,heading_err);
     ROS_INFO("lateral err, trip dist err = %f, %f",lateral_err,trip_dist_err);
+    ROS_INFO("x from Odom is %f", odom_x_);
+    ROS_INFO("y from Odom is %f", odom_y_);
+    ROS_INFO("phi from Odom is %f", odom_phi_);
     // DEFINITELY COMMENT OUT ALL cout<< OPERATIONS FOR REAL-TIME CODE
     //std::cout<<des_xy_vec_<<std::endl;
     //std::cout<<odom_xy_vec_<<std::endl;
