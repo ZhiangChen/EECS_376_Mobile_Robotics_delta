@@ -15,7 +15,7 @@ find_package(catkin_simple REQUIRED)
 #include_directories(${EIGEN3_INCLUDE_DIR})
 #add_definitions(${EIGEN_DEFINITIONS})
 
-catkin_simple()
+catkin_simple() 
 
 # example boost usage
 # find_package(Boost REQUIRED COMPONENTS system thread)
