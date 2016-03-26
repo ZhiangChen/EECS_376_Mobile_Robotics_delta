@@ -31,7 +31,9 @@ DesStatePublisher::DesStatePublisher(ros::NodeHandle& nh) : nh_(nh) {
     motion_mode_ = DONE_W_SUBGOAL; //init in state ready to process new goal
     e_stop_trigger_ = false; //these are intended to enable e-stop via a service
     e_stop_reset_ = false; //and reset estop
-    current_pose_ = trajBuilder_.xyPsi2PoseStamped(0,0,0);
+    /*********************  ps7  *************************/
+    current_pose_ = trajBuilder_.xyPsi2PoseStamped(1.416,-1.149,-0.1127);
+    /*********************  ps7  ***********************/
     start_pose_ = current_pose_;
     end_pose_ = current_pose_;
     current_des_state_.twist.twist = halt_twist_;
@@ -117,7 +119,7 @@ void DesStatePublisher::pub_next_state() {
     // first test if an e-stop has been triggered
     if (e_stop_trigger_) {
         e_stop_trigger_ = false; //reset trigger
-        //compute a halt trajectory
+        //compute a triggerhalt trajectory
         trajBuilder_.build_braking_traj(current_pose_, des_state_vec_);
         //ROS_INFO("finished braking interpolation");
         motion_mode_ = HALTING;
@@ -127,13 +129,13 @@ void DesStatePublisher::pub_next_state() {
     //or if an e-stop has been cleared
     if (e_stop_reset_) {
         e_stop_reset_ = false; //reset trigger
-        if (motion_mode_ != E_STOPPED) {
-            ROS_WARN("e-stop reset while not in e-stop mode");
-        }
+       // if (motion_mode_ != E_STOPPED) {
+         //   ROS_WARN("e-stop reset while not in e-stop mode");
+        //}
         //OK...want to resume motion from e-stopped mode;
-        else {
+        //else {
             motion_mode_ = DONE_W_SUBGOAL; //this will pick up where left off
-        }
+        //}
     }
     
     //state machine; results in publishing a new desired state
@@ -164,7 +166,8 @@ void DesStatePublisher::pub_next_state() {
                 halt_state_.twist.twist = halt_twist_;
                 seg_end_state_ = halt_state_;
                 current_des_state_ = seg_end_state_;
-                motion_mode_ = E_STOPPED; //change state to remain halted                    
+                motion_mode_ = E_STOPPED; //change state to remain halted   \
+                ROS_INFO("halted"):                 
             }
             break;
 

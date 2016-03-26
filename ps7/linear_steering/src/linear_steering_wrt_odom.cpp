@@ -235,6 +235,14 @@ void SteeringController::lin_steering_algorithm() {
     //controller_omega = des_state_omega_; //ditto
     controller_omega = des_state_omega_ + K_PHI*heading_err + K_DISP*lateral_err;
     
+    /*Chen, 3/26/2016*/
+    controller_speed = K_TRIP_DIST*trip_dist_err; //you call that clever ?!?!?!? should speed up/slow down to null out 
+    controller_omega = K_PHI*heading_err + K_DISP*lateral_err;
+    if(controller_speed>MAX_SPEED)
+	controller_speed = MAX_SPEED;
+    if(controller_omega>MAX_OMEGA)
+        controller_omega = MAX_OMEGA;
+
     controller_omega = MAX_OMEGA*sat(controller_omega/MAX_OMEGA); // saturate omega command at specified limits
     
     // send out our very clever speed/spin commands:
