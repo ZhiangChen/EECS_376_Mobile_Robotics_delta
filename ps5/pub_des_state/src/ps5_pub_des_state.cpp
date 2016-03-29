@@ -31,7 +31,9 @@ DesStatePublisher::DesStatePublisher(ros::NodeHandle& nh) : nh_(nh) {
     motion_mode_ = DONE_W_SUBGOAL; //init in state ready to process new goal
     e_stop_trigger_ = false; //these are intended to enable e-stop via a service
     e_stop_reset_ = false; //and reset estop
-    current_pose_ = trajBuilder_.xyPsi2PoseStamped(0,0,0);
+    /*********************  ps7  *************************/
+    current_pose_ = trajBuilder_.xyPsi2PoseStamped(1.291,-2.247,0.217);
+    /*********************  ps7  ***********************/
     start_pose_ = current_pose_;
     end_pose_ = current_pose_;
     current_des_state_.twist.twist = halt_twist_;

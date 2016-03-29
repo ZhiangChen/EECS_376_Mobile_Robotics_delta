@@ -241,7 +241,7 @@ void SteeringController::lin_steering_algorithm() {
     if(controller_speed>MAX_SPEED)
 	controller_speed = MAX_SPEED;
     if(controller_omega>MAX_OMEGA)
-        controller_omega = MAX_OMEGA;
+        controller_omega=MAX_OMEGA;
 
     controller_omega = MAX_OMEGA*sat(controller_omega/MAX_OMEGA); // saturate omega command at specified limits
     

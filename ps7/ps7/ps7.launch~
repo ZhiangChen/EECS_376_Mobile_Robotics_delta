@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <launch>
 <node name="linear_steering_wrt_odom" pkg="linear_steering" type="linear_steering_wrt_odom"/>
+<<<<<<< HEAD
 
+=======
+<node pkg="rviz" type="rviz" name="rviz" args="-d $(find ps7)/mobot_w_lidar.rviz"/>
+>>>>>>> f2ef45f76ff72778f727cffa63e1ad0b29c909d1
 </launch>
