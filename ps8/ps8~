@@ -9,11 +9,11 @@ rosrun ps6 ps6
 rosrun gmapping slam_gmapping scan:=/base_laser1_scan
 rosbag play hallway
 rosrun rviz rviz
-rosrun map_server map_server -f my_map
+rosrun map_server map_saver -f my_map
 --------------------
 
 change the directory to where my_map resides,
 rosrun map_server map_server my_map.yaml
-rosrun pub_des_state ps5_open_loop_controller
+rosrun linear_steering linear_steering
 rosrun amcl amcl scan:=/base_laser1_scam
 rosrun ps6 ps6
