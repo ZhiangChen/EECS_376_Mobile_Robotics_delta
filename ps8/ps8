@@ -14,7 +14,7 @@ rosrun map_server map_saver -f my_map
 
 change the directory to where my_map resides,
 rosrun map_server map_server my_map.yaml
-rosrun amcl amcl scan:=/base_laser1_scam
+rosrun amcl amcl scan:=/base_laser1_scan
 rosrun rviz rviz
 rosrun linear_steering linear_steering
 rosrun ps6 ps6
