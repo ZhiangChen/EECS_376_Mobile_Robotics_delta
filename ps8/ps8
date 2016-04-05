@@ -16,5 +16,5 @@ change the directory to where my_map resides,
 rosrun map_server map_server my_map.yaml
 rosrun amcl amcl scan:=/base_laser1_scan
 rosrun rviz rviz
-rosrun linear_steering linear_steering
+rosrun mcl_commander mcl_commander
 rosrun ps6 ps6

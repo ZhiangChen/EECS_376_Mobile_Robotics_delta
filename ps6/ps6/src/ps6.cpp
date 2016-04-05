@@ -13,8 +13,8 @@ int main(int argc, char **argv) {
     //put some points in the path queue--hard coded here
 
 
-    desStatePublisher.append_path_queue(4.88,0.0,0.0);
-    desStatePublisher.append_path_queue(4.88,-12.2,0.0);
+    desStatePublisher.append_path_queue(5.8,0.0,0.0);
+    desStatePublisher.append_path_queue(6.0,-12.2,0.0);
     desStatePublisher.append_path_queue(-3.96,-12.1,0.0);
     
     

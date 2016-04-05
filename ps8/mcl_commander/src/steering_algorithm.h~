@@ -25,7 +25,13 @@
 #include <geometry_msgs/PointStamped.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <nav_msgs/Odometry.h>
- #include <tf/transform_listener.h>
+#include <tf/transform_listener.h>
+#include <geometry_msgs/PoseWithCovarianceStamped.h>
+
+#include <Eigen/Eigen> //for the Eigen library
+#include <Eigen/Dense>
+#include <Eigen/Geometry>
+#include <Eigen/Eigenvalues>
 
 //Eigen is useful for linear algebra
 //#include <Eigen/Eigen>
@@ -53,6 +59,14 @@ public:
     double min_dang(double dang);  
     double sat(double x);
 private:
+    /*Chen*/
+    void tfCallback(const geometry_msgs::PoseWithCovarianceStamped amcl_pose);
+    Eigen::Affine3f transformTFToEigen(const tf::Transform &t);
+    void printTf(tf::Transform tf);
+    Eigen::Affine3f map2odom_;
+    Eigen::Vector3f des_xyz_;
+    Eigen::Vector3f des_t_;
+
     // put private member data here;  "private" data will only be available to member functions of this class;
     ros::NodeHandle nh_; // we will need this, to pass between "main" and constructor
     // some objects to support subscriber, service, and publisher
@@ -105,8 +119,7 @@ private:
     void initializeServices();
  
     void odomCallback(const nav_msgs::Odometry& odom_rcvd);
-    void desStateCallback(const nav_msgs::Odometry& des_state_rcvd);    
-        
+    void desStateCallback(const nav_msgs::Odometry& des_state_rcvd);            
 }; 
 
 #endif  
