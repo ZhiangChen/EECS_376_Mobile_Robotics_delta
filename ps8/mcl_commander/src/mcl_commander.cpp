@@ -186,12 +186,12 @@ void SteeringController::desStateCallback(const nav_msgs::Odometry& des_state_rc
    	tf::Quaternion quat_map_to_odom;
    	odomToMap_.getBasis().getRotation(quat_map_to_odom);
    	tf::Quaternion quat_wrt_odom = quat_map_to_odom*quat_wrt_map;
-
+/*
    	if (des_state_phi_>0)
    		des_state_phi_ = abs(min_dang(quat_wrt_odom.getAngle()));
    	else 
    		des_state_phi_ = -abs(min_dang(quat_wrt_odom.getAngle()));
-
+*/
 }
 
 //utility fnc to compute min dang, accounting for periodicity
