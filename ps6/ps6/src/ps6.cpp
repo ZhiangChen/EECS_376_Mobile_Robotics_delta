@@ -14,8 +14,8 @@ int main(int argc, char **argv) {
 
 
     desStatePublisher.append_path_queue(5.8,0.0,0.0);
-    desStatePublisher.append_path_queue(6.0,-12.2,0.0);
-    desStatePublisher.append_path_queue(-3.96,-12.1,0.0);
+    desStatePublisher.append_path_queue(0,0,0.0);
+    desStatePublisher.append_path_queue(0,5,0.0);
     
     
     // main loop; publish a desired state every iteration
