@@ -38,6 +38,21 @@ It provides the functions to search a coke can on the table.
 #include <pcl/filters/extract_indices.h>
 #include <pcl_ros/transforms.h>
 #include <pcl-1.7/pcl/impl/point_types.hpp>
+
+#define TableHeight 0.5
+#define TableTol 0.01
+#define TableBottom 0.2
+#define TableTop 1
+#define TableLeft -1
+#define TableRight 1
+#define TableRed 23
+#define TableGreen 45
+#define TableBlue 45
+#define ClrTol 50
+#define TableLength 1
+#define TableWidth 1
+#define CanHeight 0.1
+
 class CanSearcher
 {
 public:
@@ -55,8 +70,9 @@ private:
 	pcl::PointCloud<pcl::PointXYZRGB>::Ptr tf_downsampled_ptr_;
 	Eigen::Affine3f kinect_wrt_torso_;
 
-	// Eigen::Vector3f table_centroid_;
-	// Eigen::Vector3f table_ll_; // lower left conner;
+	bool got_table_;
+	Eigen::Vector3f table_centroid_;
+
 
 	ros::Publisher pubSPKinect_;
 	ros::Publisher pubTable_;
