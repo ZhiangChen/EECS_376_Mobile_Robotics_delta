@@ -1,0 +1,15 @@
+/*
+The MIT License (MIT)
+Copyright (c) 2016 Zhiang Chen
+
+This package is for CWRU EECS376 course final project.
+It provides the functions to search a coke can on the table.
+*/
+
+#ifndef CAN_SEARCHER_H_
+#define CAN_SEARCHER_H_
+
+class
+
+
+#endif
