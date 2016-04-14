@@ -1,7 +1,8 @@
 #include <move_arm/move_arm.h>
 
 
-MoveArm::MoveArm(ros::NodeHandle* nh){
+MoveArm::MoveArm(ros::NodeHandle* nh):nh_(nh) 
+{
 
 }
 

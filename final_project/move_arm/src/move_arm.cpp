@@ -11,7 +11,7 @@ bool MoveArm::setPrepose(){
 return true;
 }
 
-bool MoveArm::graspCan(){
+bool MoveArm::graspCan(Eigen::Vector3f centroid){
 
 return true;
 }
