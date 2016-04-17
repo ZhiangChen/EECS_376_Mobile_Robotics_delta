@@ -39,19 +39,19 @@ It provides the functions to search a coke can on the table.
 #include <pcl_ros/transforms.h>
 #include <pcl-1.7/pcl/impl/point_types.hpp>
 
-#define TableHeight 0.5
+#define TableHeight -0.155
 #define TableTol 0.01
-#define TableBottom 0.2
-#define TableTop 1
-#define TableLeft -1
-#define TableRight 1
-#define TableRed 23
-#define TableGreen 45
-#define TableBlue 45
-#define ClrTol 50
-#define TableLength 1
-#define TableWidth 1
-#define CanHeight 0.1
+#define TableBottom 0.4
+#define TableTop 1.5
+#define TableLeft -1.0
+#define TableRight 1.0
+#define TableRed 89
+#define TableGreen 143
+#define TableBlue 168
+#define ClrTol 70
+#define TableLength 1.0
+#define TableWidth 1.0
+#define CanHeight 0.22
 
 class CanSearcher
 {

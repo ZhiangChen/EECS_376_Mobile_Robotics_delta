@@ -109,12 +109,12 @@ bool CanSearcher::searchTable()
 	pcl::PointCloud<pcl::PointXYZRGB>::Ptr table_ptr(new pcl::PointCloud<pcl::PointXYZRGB>);
 	Pclutils_.copy_cloud_xyzrgb_indices(tf_downsampled_ptr_,indices_table,table_ptr);
 	pcl::toROSMsg(*table_ptr, table_cloud_);
+	ROS_INFO("Got the table with %d points.",n);
 	if (n<20)
 	{
 		ROS_WARN("Failed to find the table!");
 		return false;
 	}
-	ROS_INFO("Got the table with %d points.",n);
 	// find the centroid
 	Eigen::Vector3f cloud_pt;   
     n = indices_table.size();    
@@ -148,23 +148,26 @@ bool CanSearcher::searchCan(Eigen::Vector3f &centroid)
 	{
 		pnt = tf_downsampled_ptr_->points[i].getVector3fMap();
 		dist = pnt - table_centroid_;
-		if (dist[0]>-TableLength/2 && dist[0]<TableLength/2)
-			if (dist[1]>-TableWidth/2 && dist[1]<TableWidth/2)
+		if (dist[0]>-TableWidth/2.0 && dist[0]<TableWidth/2.0)
+		{
+			cout<<dist.transpose()<<endl;
+			if (dist[1]>-TableLength/2.0 && dist[1]<TableLength/2.0)
 				if (dist[2]>CanHeight)
 				{
 					indices_can.push_back(i);
 				}
+		}
 	}
 	n = indices_can.size();
 	pcl::PointCloud<pcl::PointXYZRGB>::Ptr can_ptr(new pcl::PointCloud<pcl::PointXYZRGB>);
 	Pclutils_.copy_cloud_xyzrgb_indices(tf_downsampled_ptr_,indices_can,can_ptr);
 	pcl::toROSMsg(*can_ptr, can_top_cloud_);
+	ROS_INFO("Got the can with %d points",n);
 	if (n<8)
 	{
 		ROS_WARN("Failed to find the can!");
 		return false;
 	}
-	ROS_INFO("Got the can with %d points",n);
 	// find the centroid of the top of the can	
 	Eigen::Vector3f cloud_pt;   
     Eigen::Vector3f t_centroid;    
