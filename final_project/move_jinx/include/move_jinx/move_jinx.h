@@ -12,7 +12,6 @@ Written by Ananya, 4/14/16, 14:25
 #include <std_srvs/Trigger.h>
 #include <pub_des_state/path.h>
 #include <std_msgs/Float64.h>
-
 // define a class, including a constructor, member variables and member functions
 class MoveJinx
 {

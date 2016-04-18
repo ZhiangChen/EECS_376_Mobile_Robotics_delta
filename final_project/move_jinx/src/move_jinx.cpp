@@ -7,9 +7,6 @@
 using namespace std;
 
 // This header incorporates all the necessary #include files and defines the class MoveJinx
-
-#include <move_jinx/move_jinx.h>
-
 MoveJinx::MoveJinx(ros::NodeHandle* nodehandle): nh_(*nodehandle)
 { 
     desStatePublisher.set_init_pose(0,0,0); //x=0, y=0, psi=0
