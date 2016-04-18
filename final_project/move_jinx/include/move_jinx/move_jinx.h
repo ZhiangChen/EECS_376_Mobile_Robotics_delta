@@ -7,6 +7,11 @@ Written by Ananya, 4/14/16, 14:25
 #ifndef MOVEJINX_H_
 #define MOVEJINX_H_
 #include <ros/ros.h> //generic C++ stuff
+#include <std_msgs/Float64.h>
+#include <std_msgs/Bool.h>
+#include <std_srvs/Trigger.h>
+#include <pub_des_state/path.h>
+#include <std_msgs/Float64.h>
 
 // define a class, including a constructor, member variables and member functions
 class MoveJinx
@@ -17,6 +22,8 @@ public:
     bool move2LT(); // move to the left table;
     bool moveBack(); // move to the initial position;
     bool move2RT();  // move to the right table;
+    const double left_table_dist = 1.0 ;
+    const double right_table_dist = 1.0;
 
 
 private:

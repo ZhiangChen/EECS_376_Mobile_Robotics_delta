@@ -7,10 +7,16 @@ int main(int argc, char **argv) {
     ros::init(argc, argv, "move_jinx");
     ros::NodeHandle nh;
     
-    MoveJinx(&nh);
+    MoveJinx Movejinx(&nh);
 
 
     while (ros::ok()) {
-
+       desStatePublisher.pub_next_state();
+    	if(desStatePublisher.get_estop_trigger())
+    	{
+    		ROS_INFO("estop is triggered");
+    	}
+            ros::spinOnce();
+            looprate.sleep(); //sleep for defined sample period, then do loop again
         }
 }
