@@ -12,9 +12,6 @@ int main(int argc, char **argv) {
     MoveArm Movearm(&nh);
 
 
-    while (ros::ok()) {
-
-    }
 }
 
 
