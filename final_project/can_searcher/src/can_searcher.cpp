@@ -126,6 +126,24 @@ bool CanSearcher::searchTable()
     table_centroid_/= n; //divide by the number of points to get the centroid
     ROS_INFO_STREAM("The centroid of the table is "<<table_centroid_.transpose());
     got_table_ = true;
+    // 3. grid for table 
+    float l_m = 10;
+    float r_m = -10;
+    float t_m = -10;
+    float b_m = 10;
+    for (int i = 0; i < n; i++) {
+        cloud_pt = tf_downsampled_ptr_->points[indices_table[i]].getVector3fMap();
+        if(cloud_pt[0]<b_m)
+        	b_m = cloud_pt[0];
+        if(cloud_pt[0]>t_m)
+        	t_m = cloud_pt[0];
+        if(cloud_pt[1]<l_m)
+        	l_m = cloud_pt[1];
+        if(cloud_pt[1]>r_m)
+        	r_m = cloud_pt[1];
+    }
+    table_corners_ << l_m,r_m,t_m,b_m;
+    ROS_INFO_STREAM("The boundary of the table(left,right,top,bottom):"<<table_corners_.transpose());
     return true;
 }
 
@@ -179,6 +197,60 @@ bool CanSearcher::searchCan(Eigen::Vector3f &centroid)
     ROS_INFO_STREAM("The centroid of the can is "<<centroid.transpose());
     return true;
 }
+
+bool CanSearcher::searchCan2(Eigen::Vector3f &centroid)
+{
+	if (!got_table_)
+	{
+		ROS_WARN("Can't search the can without the table!");
+		return false;
+	}
+	ROS_INFO("Searching the coke can...");
+    float l_m = table_corners_[0];
+    float r_m = table_corners_[1];
+    float t_m = table_corners_[2];
+    float b_m = table_corners_[3];	
+
+    vector<int> indices_can;
+	int n = tf_downsampled_ptr_->points.size();
+	Eigen::Vector3f pnt;
+	Eigen::Vector3f dist;
+	for (int i=0; i<n; i++)
+	{
+		pnt = tf_downsampled_ptr_->points[i].getVector3fMap();
+		dist = pnt - table_centroid_;
+		if (pnt[0]>b_m && pnt[0]<t_m)
+			if (pnt[1]>l_m && pnt[1]<r_m)
+				if (dist[2]>CanHeight && dist[2]<CanHeight+0.08)
+				{
+					indices_can.push_back(i);
+				}
+	}
+	n = indices_can.size();
+	pcl::PointCloud<pcl::PointXYZRGB>::Ptr can_ptr(new pcl::PointCloud<pcl::PointXYZRGB>);
+	Pclutils_.copy_cloud_xyzrgb_indices(tf_downsampled_ptr_,indices_can,can_ptr);
+	pcl::toROSMsg(*can_ptr, can_top_cloud_);
+	ROS_INFO("Got the can with %d points",n);
+	if (n<8)
+	{
+		ROS_WARN("Failed to find the can!");
+		return false;
+	}
+	// find the centroid of the top of the can	
+	Eigen::Vector3f cloud_pt;   
+    Eigen::Vector3f t_centroid;    
+    t_centroid<<0,0,0;
+    for (int i = 0; i < n; i++) {
+        cloud_pt = tf_downsampled_ptr_->points[indices_can[i]].getVector3fMap();
+        t_centroid += cloud_pt; //add all the column vectors together
+    }
+    t_centroid/= n; //divide by the number of points to get the centroid
+    centroid = t_centroid;
+    centroid[2] -= CanHeight/2; 
+    ROS_INFO_STREAM("The centroid of the can is "<<centroid.transpose());
+    return true;
+}
+
 
 void CanSearcher::publishPoints()
 {

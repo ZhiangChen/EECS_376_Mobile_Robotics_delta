@@ -53,9 +53,6 @@ int main(int argc, char** argv) {
     A_plane_wrt_camera.matrix()(3,2)=0;
     A_plane_wrt_camera.matrix()(3,3)=1;
     
-    // x-180
-
-    // z-90
     //Can_searcher.setAffine(A_plane_wrt_camera);
 
     bool got_table;
@@ -64,7 +61,7 @@ int main(int argc, char** argv) {
     got_table = Can_searcher.searchTable();
     if (got_table)
     {
-        got_can = Can_searcher.searchCan(can_centroid);
+        got_can = Can_searcher.searchCan2(can_centroid);
     }
     if (got_can)
     {

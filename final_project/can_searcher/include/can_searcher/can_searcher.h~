@@ -51,7 +51,7 @@ It provides the functions to search a coke can on the table.
 #define ClrTol 70
 #define TableLength 1.0
 #define TableWidth 1.0
-#define CanHeight 0.22
+#define CanHeight 0.11
 
 class CanSearcher
 {
