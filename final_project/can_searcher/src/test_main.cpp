@@ -29,8 +29,35 @@ int main(int argc, char** argv) {
     ros::init(argc, argv, "coke_can_finder"); //node name
     ros::NodeHandle nh;
     CanSearcher Can_searcher(&nh);
+
     Can_searcher.takeAPic();
     
+    Eigen::Affine3f A_plane_wrt_camera;
+    A_plane_wrt_camera.matrix()(0,0)=0.999679;
+    A_plane_wrt_camera.matrix()(0,1)=0;
+    A_plane_wrt_camera.matrix()(0,2)=-0.025333;
+    A_plane_wrt_camera.matrix()(0,3)=0.0247843;
+
+    A_plane_wrt_camera.matrix()(1,0)=-0.00400895;
+    A_plane_wrt_camera.matrix()(1,1)=-0.986884;
+    A_plane_wrt_camera.matrix()(1,2)=-0.161378;
+    A_plane_wrt_camera.matrix()(1,3)=0.157883;
+
+    A_plane_wrt_camera.matrix()(2,0)=-0.025007;
+    A_plane_wrt_camera.matrix()(2,1)=0.16143;
+    A_plane_wrt_camera.matrix()(2,2)=-0.986567;
+    A_plane_wrt_camera.matrix()(2,3)=0.9651992;
+
+    A_plane_wrt_camera.matrix()(3,0)=0;
+    A_plane_wrt_camera.matrix()(3,1)=0;
+    A_plane_wrt_camera.matrix()(3,2)=0;
+    A_plane_wrt_camera.matrix()(3,3)=1;
+    
+    // x-180
+
+    // z-90
+    //Can_searcher.setAffine(A_plane_wrt_camera);
+
     bool got_table;
     bool got_can;
     Eigen::Vector3f can_centroid;
