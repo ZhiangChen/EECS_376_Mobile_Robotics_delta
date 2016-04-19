@@ -19,7 +19,7 @@ tf_downsampled_ptr_(new pcl::PointCloud<pcl::PointXYZRGB>)
 
     // let's warm up the tf_listener, to make sure it get's all the transforms it needs to avoid crashing:
     bool tferr = true;
-    ROS_INFO("waiting for tf between kinect_pc_frame and torso...");
+    ROS_INFO("waiting for tf between camera and torso...");
     while (tferr) {
         tferr = false;
         try {

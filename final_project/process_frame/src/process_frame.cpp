@@ -11,9 +11,10 @@ int main(int argc, char **argv) {
     MoveJinx Movejinx(&nh);
     MoveArm Movearm(&nh);
 
+
     while (ros::ok()) {
 
-        }
+    }
 }
 
 

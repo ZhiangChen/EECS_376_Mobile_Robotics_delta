@@ -39,6 +39,9 @@ It provides the functions to search a coke can on the table.
 #include <pcl_ros/transforms.h>
 #include <pcl-1.7/pcl/impl/point_types.hpp>
 
+#define Gazebo_baxter
+
+#ifndef Gazebo_baxter
 #define TableHeight 0.012
 #define TableTol 0.01
 #define TableBottom 0.17
@@ -52,6 +55,24 @@ It provides the functions to search a coke can on the table.
 #define TableLength 1.0
 #define TableWidth 1.0
 #define CanHeight 0.11
+
+#else 
+
+#define TableHeight -0.155
+#define TableTol 0.01
+#define TableBottom 0.35
+#define TableTop 1.12
+#define TableLeft -1.0
+#define TableRight 1.0
+#define TableRed 80
+#define TableGreen 139
+#define TableBlue 167
+#define ClrTol 70
+#define TableLength 0.7
+#define TableWidth 1.0
+#define CanHeight 0.22
+
+#endif
 
 class CanSearcher
 {
