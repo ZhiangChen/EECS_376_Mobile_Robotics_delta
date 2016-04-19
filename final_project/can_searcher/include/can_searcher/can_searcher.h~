@@ -60,6 +60,7 @@ public:
 	void takeAPic();
 	bool searchTable();
 	bool searchCan(Eigen::Vector3f &centroid);
+	bool searchCan2(Eigen::Vector3f &centroid);
 	
 	void publishPoints();
 	void setAffine(Eigen::Affine3f af){kinect_wrt_torso_=af;};
@@ -72,6 +73,7 @@ private:
 
 	bool got_table_;
 	Eigen::Vector3f table_centroid_;
+	Eigen::Vector4f table_corners_;
 
 
 	ros::Publisher pubSPKinect_;
