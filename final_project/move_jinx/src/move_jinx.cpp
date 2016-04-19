@@ -12,8 +12,20 @@ MoveJinx::MoveJinx(ros::NodeHandle* nodehandle): nh_(*nodehandle)
 
 }
 
+bool MoveJinx::move2LT()
+{
+    return true;
+}
 
+bool MoveJinx::moveBack()
+{
+    return true;
+}
 
+bool MoveJinx::move2RT()
+{ 
+    return true;
+}
 
 
 

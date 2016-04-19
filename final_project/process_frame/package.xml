@@ -44,6 +44,10 @@
   <run_depend>roscpp</run_depend>
   <build_depend>can_searcher</build_depend>
   <run_depend>can_searcher</run_depend>
+  <build_depend>move_jinx</build_depend>
+  <run_depend>move_jinx</run_depend>
+  <build_depend>move_arm</build_depend>
+  <run_depend>move_arm</run_depend>
   <!-- The export tag contains other, unspecified, tags -->
   <export>
     <!-- You can specify that this package is a metapackage here: -->
