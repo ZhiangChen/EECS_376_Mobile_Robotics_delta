@@ -15,7 +15,7 @@ MoveJinx::MoveJinx(ros::NodeHandle* nodehandle): nh_(*nodehandle), desStatePubli
 }
 
    // ros::Rate looprate(1 / dt);
-
+int i = 0;
 bool MoveJinx::move2LT()
 {    
     desStatePublisher.append_path_queue(left_table_dist,0.0,0.0);
@@ -35,7 +35,11 @@ bool MoveJinx::move2LT()
     	{
     		ROS_INFO("estop is triggered");
     	}
-            ros::spinOnce();
+	    i+=1;
+	     if (i>=1000){
+		break;
+		}
+            //ros::spinOnce();
 ros::Duration(0.02).sleep();            
 //looprate.sleep(); //sleep for defined sample period, then do loop again
         }
@@ -43,7 +47,7 @@ ros::Duration(0.02).sleep();
 }
 bool MoveJinx::moveBack()
 {
-   desStatePublisher.append_path_queue(left_table_dist,0.0,0.0);
+   //desStatePublisher.append_path_queue(left_table_dist,0.0,0.0);
    desStatePublisher.append_path_queue(0.0,0.0,0.0);
    desStatePublisher.append_path_queue(0.0,right_table_dist,0.0);
     char d='x';	

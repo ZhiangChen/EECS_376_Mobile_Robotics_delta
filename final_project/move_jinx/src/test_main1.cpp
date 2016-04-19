@@ -9,8 +9,8 @@ int main(int argc, char **argv) {
     ros::NodeHandle nh;
     MoveJinx Move_jinx(&nh);
     
-   // Move_jinx.moveBack();
-    //ros::Duration(1).sleep();
+   Move_jinx.move2LT();
+   //ros::Duration(1).sleep();
     Move_jinx.moveBack();
    
 return 0;
