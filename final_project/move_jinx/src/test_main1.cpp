@@ -7,7 +7,11 @@ using namespace std;
 int main(int argc, char **argv) {
     ros::init(argc, argv, "move_jinx");
     ros::NodeHandle nh;
+    MoveJinx Move_jinx(&nh);
     
-    MoveJinx Movejinx(&nh);
-
+   // Move_jinx.moveBack();
+    //ros::Duration(1).sleep();
+    Move_jinx.moveBack();
+   
+return 0;
 }
