@@ -44,7 +44,7 @@ private:
     std_msgs::Float64 float_msg_;
     double des_psi_;
     std::queue<geometry_msgs::PoseStamped> path_queue_; //a C++ "queue" object, stores vertices as Pose points in a FIFO queue
-    int motion_mode_;
+    
     bool e_stop_trigger_; //these are intended to enable e-stop via a service
     bool e_stop_reset_;
     int traj_pt_i_;
@@ -85,7 +85,7 @@ public:
 	
 	bool get_subgoal(std::vector<nav_msgs::Odometry> &subgoals)
 	{subgoals = subgoals_;}
-
+    int motion_mode_;
     int get_motion_mode() {return motion_mode_;}
     void set_motion_mode(int mode) {motion_mode_ = mode;}
     bool get_estop_trigger() { return e_stop_trigger_;}

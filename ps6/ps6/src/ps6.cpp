@@ -13,12 +13,12 @@ int main(int argc, char **argv) {
     //put some points in the path queue--hard coded here
 
 
-    desStatePublisher.append_path_queue(5.8,0.0,0.0);
-    desStatePublisher.append_path_queue(0,0,0.0);
-    desStatePublisher.append_path_queue(0,5,0.0);
+    //desStatePublisher.append_path_queue(5.8,0.0,0.0);
+    //desStatePublisher.append_path_queue(0,0,0.0);
+    //desStatePublisher.append_path_queue(0,5,0.0);
     
     
-    // main loop; publish a desired state every iteration
+    //main loop; publish a desired state every iteration
     char d='x';	
     while(d!='y')
     {
