@@ -21,8 +21,6 @@ public:
     bool move2LT(); // move to the left table;
     bool moveBack(); // move to the initial position;
     bool move2RT();  // move to the right table;
-    const double left_table_dist = 1.0 ;
-    const double right_table_dist = 1.0;
 
 
 private:
