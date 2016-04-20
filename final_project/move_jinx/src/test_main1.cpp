@@ -9,9 +9,10 @@ int main(int argc, char **argv) {
     ros::NodeHandle nh;
     MoveJinx Move_jinx(&nh);
     
-   Move_jinx.move2LT();
+    Move_jinx.move2LT(); // move to the left table
    //ros::Duration(1).sleep();
-    Move_jinx.moveBack();
+    Move_jinx.moveBack();// move back to the initial position
+    Move_jinx.move2Rt() ;// move to the right table
    
 return 0;
 }

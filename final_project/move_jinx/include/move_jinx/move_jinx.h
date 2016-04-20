@@ -15,6 +15,9 @@ Written by Ananya, 4/14/16, 14:25
 #include <pub_des_state/ps5_pub_des_state.h>
 #define left_table_dist 1.0
 #define right_table_dist 1.0
+#define left_table_heading 0.0
+#define right_table_heading 0.0
+
 // define a class, including a constructor, member variables and member functions
 class MoveJinx
 {
