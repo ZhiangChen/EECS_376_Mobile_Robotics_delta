@@ -14,7 +14,7 @@ int main(int argc, char **argv) {
     bool got_table = false;
     bool got_can = false;
 
-    Movejinx.move2LT();
+    //Movejinx.move2LT();
     Cansearcher.takeAPic();
     got_table = Cansearcher.searchTable();
     if (got_table)
@@ -35,7 +35,8 @@ int main(int argc, char **argv) {
     {
     	ROS_INFO("Cannot find a coke can on the left table.");
     	ROS_INFO("Moving to the right table...");
-    	Movejinx.moveBack();
+    	//Movejinx.moveBack();
+	//Movejinx.move2RT();
     	Cansearcher.takeAPic();
     	got_table = false;
     	got_table = Cansearcher.searchTable();
