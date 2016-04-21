@@ -12,7 +12,7 @@ int main(int argc, char **argv) {
     Move_jinx.move2LT(); // move to the left table
    //ros::Duration(1).sleep();
     Move_jinx.moveBack();// move back to the initial position
-    Move_jinx.move2Rt() ;// move to the right table
+    Move_jinx.move2RT() ;// move to the right table
    
 return 0;
 }
