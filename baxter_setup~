@@ -1,7 +1,7 @@
 baxter_master
 roslaunch freenect_launch freenect.launch 
 rosrun tf static_transform_publisher  0.1 0 1.7 0 1.4 0  base_link camera_link 50
-rosrun tf static_transform_publisher  -0.2  0 1.0  3.14 0 1.57  camera_link torso 50
+rosrun tf static_transform_publisher  -0.2  0 1.0  -1.57 -0.17 3.14  base_link torso 50
 roslaunch baxter_launch_files kinect_transform.launch
 rosrun rviz rviz
 

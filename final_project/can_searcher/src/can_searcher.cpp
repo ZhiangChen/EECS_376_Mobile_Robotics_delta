@@ -26,9 +26,9 @@ tf_downsampled_ptr_(new pcl::PointCloud<pcl::PointXYZRGB>)
             // The direction of the transform returned will be from the target_frame to the source_frame. 
             // Which if applied to data, will transform data in the source_frame into the target_frame. See tf/CoordinateFrameConventions#Transform_Direction
             #ifndef Gazebo_baxter
-            tf_listener.lookupTransform("torso", "camera_link", ros::Time(0), tf_sensor_frame_to_torso_frame);
+            tf_listener.lookupTransform("base_link", "camera_depth_optical_frame", ros::Time(0), tf_sensor_frame_to_torso_frame);
             #else 
-            tf_listener.lookupTransform("torso", "kinect_pc_frame", ros::Time(0), tf_sensor_frame_to_torso_frame);
+            tf_listener.lookupTransform("torso", "camera_depth_optical_frame", ros::Time(0), tf_sensor_frame_to_torso_frame);
             #endif
         } catch (tf::TransformException &exception) {
             ROS_ERROR("%s", exception.what());
@@ -259,9 +259,9 @@ bool CanSearcher::searchCan2(Eigen::Vector3f &centroid)
 void CanSearcher::publishPoints()
 {
 	// update frames
-	kinect_cloud_.header.frame_id = "torso";
-	table_cloud_.header.frame_id = "torso";
-	can_top_cloud_.header.frame_id = "torso";
+	kinect_cloud_.header.frame_id = "base_link";
+	table_cloud_.header.frame_id = "base_link";
+	can_top_cloud_.header.frame_id = "base_link";
 	// publish all
 	pubSPKinect_.publish(kinect_cloud_);
 	pubTable_.publish(table_cloud_);

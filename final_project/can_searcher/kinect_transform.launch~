@@ -15,6 +15,7 @@
 <!-- make this tf external for tuning -->
 <!--node pkg="tf" type="static_transform_publisher" name="camera_link_frame_bdcst" args="0.217 -0.04 0.0505  1.224 0.055 -0.81 0 kinect_link camera_link 50"/-->
 <include file="$(find freenect_launch)/launch/freenect.launch"/>
+<node pkg="tf" type="static_transform_publisher" name="camera_link_frame_bdcst" args="0.19 -0.00 0.08  -2.95 -4.1 -2.92   kinect_link camera_link 50"/>
 
 
 </launch>
