@@ -13,8 +13,7 @@ MoveJinx::MoveJinx(ros::NodeHandle* nodehandle): nh_(*nodehandle), desStatePubli
     desStatePublisher.set_init_pose(0,0,0); //x=0, y=0, psi=0
 }
 
-   // ros::Rate looprate(1 / dt);
-int i = 0;
+
 // moving jinx to the left table
 bool MoveJinx::move2LT()
 {    
@@ -39,8 +38,9 @@ bool MoveJinx::move2LT()
         		ROS_INFO("Moving to the left table...") ;
             }
     }   
-
-
+    
+    int i = 0;
+    
     while (ros::ok())
     {
         desStatePublisher.pub_next_state();
@@ -48,13 +48,14 @@ bool MoveJinx::move2LT()
     	{
     		ROS_INFO("estop is triggered");
     	}
-	    i+=1;
-	     if (i>=1000){
+	    i+=0.02;
+	
+	     if (i>=left_table_dist*5){
 		break;
 		}
-            //ros::spinOnce();
-ros::Duration(0.02).sleep();            
-//looprate.sleep(); //sleep for defined sample period, then do loop again
+        //ros::spinOnce();
+	ros::Duration(0.02).sleep();            
+	//looprate.sleep(); //sleep for defined sample period, then do loop again
     }
     return true;
 }

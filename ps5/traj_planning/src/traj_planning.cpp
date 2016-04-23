@@ -2,6 +2,7 @@
 #include <iostream>
 using namespace std;
 
+
 int main(int argc, char **argv) {
     ros::init(argc, argv, "traj_planning");
     ros::NodeHandle nh;
@@ -14,9 +15,7 @@ int main(int argc, char **argv) {
 
 
     desStatePublisher.append_path_queue(5.0,0.0,0.0);
-    desStatePublisher.append_path_queue(5.0,5.0,0.0);
-    desStatePublisher.append_path_queue(0.0,5.0,0.0);
-    desStatePublisher.append_path_queue(0.0,0.0,0.0);
+
     
     // main loop; publish a desired state every iteration
     char d='x';	
@@ -26,8 +25,11 @@ int main(int argc, char **argv) {
         cin>>d;	
         if (d=='x')
             return 0;
-    }   
+    } 
 
+    int motion_model;  
+
+    
 
     while (ros::ok()) {
         desStatePublisher.pub_next_state();
@@ -35,9 +37,62 @@ int main(int argc, char **argv) {
     	{
     		ROS_INFO("estop is triggered");
     	}
-            ros::spinOnce();
-            looprate.sleep(); //sleep for defined sample period, then do loop again
+        ros::spinOnce();
+        looprate.sleep(); //sleep for defined sample period, then do loop again
+        motion_model = desStatePublisher.get_motion_mode();
+        if (motion_model == DONE_W_SUBGOAL)
+            break;
+
+    }
+    ROS_ERROR("GOT FIRST");
+    desStatePublisher.append_path_queue(5.0,5.0,0.0);
+
+    while (ros::ok()) {
+        desStatePublisher.pub_next_state();
+        if(desStatePublisher.get_estop_trigger())
+        {
+            ROS_INFO("estop is triggered");
         }
+        ros::spinOnce();
+        looprate.sleep(); //sleep for defined sample period, then do loop again
+        motion_model = desStatePublisher.get_motion_mode();
+        if (motion_model == DONE_W_SUBGOAL)
+            break;
+
+    }
+    desStatePublisher.append_path_queue(0.0,5.0,0.0);
+
+    while (ros::ok()) {
+        desStatePublisher.pub_next_state();
+        if(desStatePublisher.get_estop_trigger())
+        {
+            ROS_INFO("estop is triggered");
+        }
+        ros::spinOnce();
+        looprate.sleep(); //sleep for defined sample period, then do loop again
+        motion_model = desStatePublisher.get_motion_mode();
+        if (motion_model == DONE_W_SUBGOAL)
+            break;
+
+    }
+    ROS_ERROR("GOT FIRST");
+    desStatePublisher.append_path_queue(0.0,0.0,0.0);   
+
+    while (ros::ok()) {
+        desStatePublisher.pub_next_state();
+        if(desStatePublisher.get_estop_trigger())
+        {
+            ROS_INFO("estop is triggered");
+        }
+        ros::spinOnce();
+        looprate.sleep(); //sleep for defined sample period, then do loop again
+        motion_model = desStatePublisher.get_motion_mode();
+        if (motion_model == DONE_W_SUBGOAL)
+            break;
+
+    }
+    ROS_ERROR("GOT FIRST");
+
 }
 
 

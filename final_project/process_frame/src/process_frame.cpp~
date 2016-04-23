@@ -29,7 +29,7 @@ int main(int argc, char **argv) {
     }
     if (got_can)
     {
-    	ROS_INFO("Got the can on the left table.");
+    	ROS_INFO("Got the can on the left table. Picking it up.");
     		Movearm.graspCan(centroid);
 		Movearm.moveCan();
 		Movearm.dropcan();
@@ -55,10 +55,10 @@ int main(int argc, char **argv) {
     	}
     	if(got_can)
     	{
-	    	ROS_INFO("Got the can on the right table.");
+	    	ROS_INFO("Got the can on the right table. Picking it up.");
 	    	Movearm.graspCan(centroid);
 		Movearm.moveCan();
-		Movearm.dropcan();
+		Movearm.dropCan();
 		return 0;
     	}
     	else

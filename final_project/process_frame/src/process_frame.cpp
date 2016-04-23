@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
     	ROS_INFO("Got the can on the left table. Picking it up.");
     		Movearm.graspCan(centroid);
 		Movearm.moveCan();
-		Movearm.dropcan();
+		Movearm.dropCan();
 		return 0;
     }
     else
@@ -58,7 +58,7 @@ int main(int argc, char **argv) {
 	    	ROS_INFO("Got the can on the right table. Picking it up.");
 	    	Movearm.graspCan(centroid);
 		Movearm.moveCan();
-		Movearm.dropcan();
+		Movearm.dropCan();
 		return 0;
     	}
     	else
