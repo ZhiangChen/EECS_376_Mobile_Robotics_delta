@@ -25,6 +25,7 @@ int main(int argc, char **argv) {
     else
     {
     	ROS_ERROR("Failed to find the left table.");
+	Movejinx.moveBack();
     	return 0;
     }
     if (got_can)
@@ -40,6 +41,7 @@ int main(int argc, char **argv) {
     	ROS_INFO("Cannot find a coke can on the left table.");
     	ROS_INFO("Moving to the right table...");
     	Movejinx.moveBack();
+	Movejinx.move2RT();
     	Cansearcher.takeAPic();
     	got_table = false;
     	got_table = Cansearcher.searchTable();
@@ -51,6 +53,7 @@ int main(int argc, char **argv) {
     	else
     	{
 	     	ROS_ERROR("Failed to find the right table.");
+		Movejinx.moveBack();
 	    	return 0;   		
     	}
     	if(got_can)
@@ -59,11 +62,16 @@ int main(int argc, char **argv) {
 	    	Movearm.graspCan(centroid);
 		Movearm.moveCan();
 		Movearm.dropCan();
+<<<<<<< HEAD
+=======
+		Movejinx.moveBack();
+>>>>>>> 3fc92db452409abd1c43582b7329df9b9cadcfc9
 		return 0;
     	}
     	else
     	{
     		ROS_INFO("Cannot find a coke can on the right table.");
+		Movejinx.moveBack();
     		return 0;
     	}
     }

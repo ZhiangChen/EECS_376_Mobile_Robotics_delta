@@ -14,12 +14,16 @@ int main(int argc, char **argv) {
     bool got_table = false;
     bool got_can = false;
 
-    Movejinx.move2LT();
+    //Movejinx.move2LT();
+    int cm;
+    //ROS_INFO("Cannot find a coke can on the left table.");
+    cout<<"Input 0 to find the coke can on the left table:";
+    cin >> cm;
     Cansearcher.takeAPic();
     got_table = Cansearcher.searchTable();
     if (got_table)
     {
-    	got_can = Cansearcher.searchCan(centroid);
+    	got_can = Cansearcher.searchCan2(centroid);
     }
     else
     {
@@ -29,20 +33,24 @@ int main(int argc, char **argv) {
     if (got_can)
     {
     	ROS_INFO("Got the can on the left table.");
-    	return 0;
     }
     else
     {
+        
+        Cansearcher.publishPoints();
     	ROS_INFO("Cannot find a coke can on the left table.");
+        cout<<"Input 1 to find the coke can on the other table:";
+        cin >> cm;
     	ROS_INFO("Moving to the right table...");
-    	Movejinx.moveBack();
+    	//Movejinx.moveBack();
+	//Movejinx.move2RT();
     	Cansearcher.takeAPic();
     	got_table = false;
     	got_table = Cansearcher.searchTable();
     	if (got_table)
     	{
     		got_can = false;
-    		got_can = Cansearcher.searchCan(centroid);
+    		got_can = Cansearcher.searchCan2(centroid);
     	}
     	else
     	{
@@ -52,13 +60,17 @@ int main(int argc, char **argv) {
     	if(got_can)
     	{
 	    	ROS_INFO("Got the can on the right table.");
-	    	return 0;
     	}
     	else
     	{
     		ROS_INFO("Cannot find a coke can on the right table.");
     		return 0;
     	}
+    }
+    while(ros::ok())
+    {
+        Cansearcher.publishPoints();
+        ros::Duration(0.1).sleep();
     }
 
 }

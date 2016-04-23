@@ -43,16 +43,16 @@ It provides the functions to search a coke can on the table.
 
 #ifndef Gazebo_baxter
 // baxter
-#define TableHeight 0.005
+#define TableHeight 0.80
 #define TableTol 0.02
 #define TableBottom 0.0
-#define TableTop 0.5
+#define TableTop 1.0
 #define TableLeft -1.0
 #define TableRight 1.0
-#define TableRed 230
-#define TableGreen 230
-#define TableBlue 230
-#define ClrTol 90
+#define TableRed 210
+#define TableGreen 210
+#define TableBlue 210
+#define ClrTol 110
 #define TableLength 1.0
 #define TableWidth 1.0
 #define CanHeight 0.11
