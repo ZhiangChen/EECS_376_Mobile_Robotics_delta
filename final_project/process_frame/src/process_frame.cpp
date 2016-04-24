@@ -62,10 +62,7 @@ int main(int argc, char **argv) {
 	    	Movearm.graspCan(centroid);
 		Movearm.moveCan();
 		Movearm.dropCan();
-<<<<<<< HEAD
-=======
 		Movejinx.moveBack();
->>>>>>> 3fc92db452409abd1c43582b7329df9b9cadcfc9
 		return 0;
     	}
     	else

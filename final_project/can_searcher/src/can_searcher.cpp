@@ -28,7 +28,7 @@ tf_downsampled_ptr_(new pcl::PointCloud<pcl::PointXYZRGB>)
             #ifndef Gazebo_baxter
             tf_listener.lookupTransform("base_link", "camera_depth_optical_frame", ros::Time(0), tf_sensor_frame_to_torso_frame);
             #else 
-            tf_listener.lookupTransform("torso", "camera_depth_optical_frame", ros::Time(0), tf_sensor_frame_to_torso_frame);
+            tf_listener.lookupTransform("torso", "kinect_pc_frame", ros::Time(0), tf_sensor_frame_to_torso_frame);
             #endif
         } catch (tf::TransformException &exception) {
             ROS_ERROR("%s", exception.what());
@@ -259,9 +259,15 @@ bool CanSearcher::searchCan2(Eigen::Vector3f &centroid)
 void CanSearcher::publishPoints()
 {
 	// update frames
+	#ifndef Gazebo_baxter
 	kinect_cloud_.header.frame_id = "base_link";
 	table_cloud_.header.frame_id = "base_link";
 	can_top_cloud_.header.frame_id = "base_link";
+	#else
+	kinect_cloud_.header.frame_id = "torso";
+	table_cloud_.header.frame_id = "torso";
+	can_top_cloud_.header.frame_id = "torso";
+	#endif
 	// publish all
 	pubSPKinect_.publish(kinect_cloud_);
 	pubTable_.publish(table_cloud_);
