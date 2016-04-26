@@ -26,7 +26,8 @@ catkin_simple()
 # SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 
 # Libraries: uncomment the following and edit arguments to create a new library
-cs_add_library(move_arm src/move_arm.cpp)   
+cs_add_library(move_arm src/move_arm.cpp) 
+#cs_add_library(cartesian_planner src/example_baxter_cart_move_action_client.cpp)  
 
 # Executables: uncomment the following and edit arguments to compile new nodes
 # may add more of these lines for more nodes from the same package
