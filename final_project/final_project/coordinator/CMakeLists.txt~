@@ -31,7 +31,7 @@ catkin_simple()
 
 # Executables: uncomment the following and edit arguments to compile new nodes
 # may add more of these lines for more nodes from the same package
-cs_add_executable(gazebo_test src/gazebo_test.cpp)
+cs_add_executable(coordinator_gazebo src/coordinator_gazebo.cpp)
 cs_add_executable(coordinator src/coordinator.cpp)
 
  

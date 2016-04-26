@@ -19,9 +19,9 @@
 geometry_msgs::PoseStamped g_perceived_object_pose;
 int g_found_object_code;
 int g_object_grabber_return_code;
-int g_navigator_rtn_code;
-bool g_get_coke_trigger=false;
 
+bool g_get_coke_trigger=false;
+   
 
 const int ALEXA_GET_COKE_CODE= 100;
 
@@ -53,21 +53,6 @@ void objectGrabberDoneCb(const actionlib::SimpleClientGoalState& state,
 }
 
 
-void navigatorDoneCb(const actionlib::SimpleClientGoalState& state,
-        const navigator::navigatorResultConstPtr& result) {
-    ROS_INFO(" navigatorDoneCb: server responded with state [%s]", state.toString().c_str());
-    g_navigator_rtn_code=result->return_code;
-    ROS_INFO("got object code response = %d; ",g_navigator_rtn_code);
-    if (g_navigator_rtn_code==navigator::navigatorResult::DESTINATION_CODE_UNRECOGNIZED) {
-        ROS_WARN("destination code not recognized");
-    }
-    else if (g_navigator_rtn_code==navigator::navigatorResult::DESIRED_POSE_ACHIEVED) {
-        ROS_INFO("reached desired location!");
-    }
-    else {
-        ROS_WARN("desired pose not reached!");
-    }
-}
 
 //external trigger:
 void alexaCB(const std_msgs::UInt32& code_msg) {
@@ -79,14 +64,13 @@ void alexaCB(const std_msgs::UInt32& code_msg) {
 }
 
 int main(int argc, char** argv) {
-    ros::init(argc, argv, "coordinator"); // name this node 
+    ros::init(argc, argv, "coordinator_gazebo"); // name this node 
     ros::NodeHandle nh; //standard ros node handle    
     
     ros::Subscriber alexa_code = nh.subscribe("/Alexa_codes", 1, alexaCB);
     
     actionlib::SimpleActionClient<object_finder::objectFinderAction> object_finder_ac("objectFinderActionServer", true);
     actionlib::SimpleActionClient<object_grabber::object_grabberAction> object_grabber_ac("objectGrabberActionServer", true);
-    actionlib::SimpleActionClient<navigator::navigatorAction> navigator_ac("navigatorActionServer", true);
 
     // attempt to connect to the server:
     ROS_INFO("waiting for server: ");
@@ -107,23 +91,11 @@ int main(int argc, char** argv) {
         ROS_INFO("retrying...");
     }
     ROS_INFO("connected to object_grabber action server"); // if here, then we connected to the server; 
-    ROS_ERROR("!!!");
-    //do the same with the "navigator" action server
-     // attempt to connect to the server:
-    ROS_INFO("waiting for server: ");
-    server_exists = false;
-    while ((!server_exists)&&(ros::ok())) {
-        server_exists = navigator_ac.waitForServer(ros::Duration(0.5)); // 
-        ros::spinOnce();
-        ros::Duration(0.5).sleep();
-        ROS_INFO("retrying...");
-    }
-    ROS_INFO("connected to navigator action server"); // if here, then we connected to the server; 
-
+    ROS_ERROR("...");
     //specifications for what we are seeking:
     object_finder::objectFinderGoal object_finder_goal;   
     object_grabber::object_grabberGoal object_grabber_goal;
-    navigator::navigatorGoal navigation_goal;
+
     
     bool finished_before_timeout;
     
@@ -134,25 +106,9 @@ int main(int argc, char** argv) {
         ros::Duration(0.5).sleep();
         ros::spinOnce();    
     }
-
-    //  IF HERE, START THE FETCH BEHAVIOR!!
-    
-    ROS_INFO("sending navigation goal: TABLE");
-    navigation_goal.location_code=navigator::navigatorGoal::TABLE; //send robot to TABLE
-        navigator_ac.sendGoal(navigation_goal,&navigatorDoneCb); // we could also name additional callback functions here, if desired
-        finished_before_timeout = navigator_ac.waitForResult(ros::Duration(30.0));
-        //bool finished_before_timeout = action_client.waitForResult(); // wait forever...
-        if (!finished_before_timeout) {
-            ROS_WARN("giving up waiting on result ");
-            return 1;
-        }
-      //SHOULD do error checking here before proceeding...
-        if (g_navigator_rtn_code!= navigator::navigatorResult::DESIRED_POSE_ACHIEVED) {
-            ROS_WARN("COULD NOT REACH TABLE; QUITTING");
-            return 1;
-        }
-                
-        ros::Duration(5.0).sleep();        
+  
+  
+      
     //assume we have reached the table; look for the Coke can:
     object_finder_goal.object_id=object_finder::objectFinderGoal::COKE_CAN_UPRIGHT; //specify object of interest
     object_finder_goal.known_surface_ht=true; //we'll say we know the table height
@@ -188,21 +144,6 @@ int main(int argc, char** argv) {
             return 1;
         }
         
-        //if here, belief is that we are holding the Coke; return home            
-    ROS_INFO("sending navigation goal: HOME");
-    navigation_goal.location_code=navigator::navigatorGoal::HOME; //send robot to TABLE
-        navigator_ac.sendGoal(navigation_goal,&navigatorDoneCb); // we could also name additional callback functions here, if desired
-        finished_before_timeout = navigator_ac.waitForResult(ros::Duration(30.0));
-        //bool finished_before_timeout = action_client.waitForResult(); // wait forever...
-        if (!finished_before_timeout) {
-            ROS_WARN("giving up waiting on result ");
-            return 1;
-        }
-      //SHOULD do error checking here before proceeding...
-        if (g_navigator_rtn_code!= navigator::navigatorResult::DESIRED_POSE_ACHIEVED) {
-            ROS_WARN("COULD NOT REACH TABLE; QUITTING");
-            return 1;
-        }
   ROS_INFO("My work here is done!"); //more generally, keep this behavior alive      
         
     return 0;
