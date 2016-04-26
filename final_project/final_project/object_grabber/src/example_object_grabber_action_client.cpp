@@ -9,6 +9,7 @@
 #include <Eigen/Eigen>
 #include <Eigen/Dense>
 #include <Eigen/Geometry>
+using namespace std;
 
 void objectGrabberDoneCb(const actionlib::SimpleClientGoalState& state,
         const object_grabber::object_grabberResultConstPtr& result) {
@@ -45,10 +46,13 @@ int main(int argc, char** argv) {
             in RPY (radian) [1.563, -0.084, 2.750]
             in RPY (degree) [89.537, -4.810, 157.546]
         */
+     double x,y,z;
+     cout<<"input x y z: ";
+     cin >>x>>y>>z;
     perceived_object_pose.header.frame_id = "torso";
-    perceived_object_pose.pose.position.x = 0.680;
-    perceived_object_pose.pose.position.y = 0;
-    perceived_object_pose.pose.position.z = -0.03534;
+    perceived_object_pose.pose.position.x = x;
+    perceived_object_pose.pose.position.y = y;
+    perceived_object_pose.pose.position.z = z;
     perceived_object_pose.pose.orientation.x = 0.166;
     perceived_object_pose.pose.orientation.y = 0.648;
     perceived_object_pose.pose.orientation.z = 0.702;
@@ -61,7 +65,7 @@ int main(int argc, char** argv) {
         object_grabber_ac.sendGoal(object_grabber_goal,&objectGrabberDoneCb); // we could also name additional callback functions here, if desired
         //    action_client.sendGoal(goal, &doneCb, &activeCb, &feedbackCb); //e.g., like this
         
-        bool finished_before_timeout = object_grabber_ac.waitForResult(ros::Duration(5.0));
+        bool finished_before_timeout = object_grabber_ac.waitForResult(ros::Duration(30.0));
         //bool finished_before_timeout = action_client.waitForResult(); // wait forever...
         if (!finished_before_timeout) {
             ROS_WARN("giving up waiting on result ");
