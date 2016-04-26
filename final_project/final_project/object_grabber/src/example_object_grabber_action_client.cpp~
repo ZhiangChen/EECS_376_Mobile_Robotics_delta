@@ -47,8 +47,8 @@ int main(int argc, char** argv) {
         */
     perceived_object_pose.header.frame_id = "torso";
     perceived_object_pose.pose.position.x = 0.680;
-    perceived_object_pose.pose.position.y = 0;
-    perceived_object_pose.pose.position.z = -0.03534;
+    perceived_object_pose.pose.position.y = -0.205;
+    perceived_object_pose.pose.position.z = 0.047;
     perceived_object_pose.pose.orientation.x = 0.166;
     perceived_object_pose.pose.orientation.y = 0.648;
     perceived_object_pose.pose.orientation.z = 0.702;
