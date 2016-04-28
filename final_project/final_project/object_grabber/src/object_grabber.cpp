@@ -113,10 +113,10 @@ void ObjectGrabber::vertical_cylinder_power_grasp(geometry_msgs::PoseStamped obj
     int planner_rtn_code;
     des_gripper_approach_pose.header.frame_id = "torso";
     des_gripper_approach_pose.pose = g_arm_motion_commander_ptr->transformEigenAffine3dToPose(a_gripper_approach_);
-    des_gripper_approach_pose.pose.orientaion.x = 0.166;
-    des_gripper_approach_pose.pose.orientaion.y = 0.648;
-    des_gripper_approach_pose.pose.orientaion.z = 0.702;
-    des_gripper_approach_pose.pose.orientaion.w = 0.109;
+    des_gripper_approach_pose.pose.orientation.x = 0.166;
+    des_gripper_approach_pose.pose.orientation.y = 0.648;
+    des_gripper_approach_pose.pose.orientation.z = 0.702;
+    des_gripper_approach_pose.pose.orientation.w = 0.109;
     planner_rtn_code = g_arm_motion_commander_ptr->rt_arm_plan_path_current_to_goal_pose(des_gripper_approach_pose);
     
     //try to move here:
@@ -125,10 +125,10 @@ void ObjectGrabber::vertical_cylinder_power_grasp(geometry_msgs::PoseStamped obj
     //slide to can:
     des_gripper_grasp_pose.header.frame_id = "torso";
     des_gripper_grasp_pose.pose = g_arm_motion_commander_ptr->transformEigenAffine3dToPose(a_gripper_grasp_);
-    des_gripper_grasp_pose.pose.orientaion.x = 0.166;
-    des_gripper_grasp_pose.pose.orientaion.y = 0.648;
-    des_gripper_grasp_pose.pose.orientaion.z = 0.702;
-    des_gripper_grasp_pose.pose.orientaion.w = 0.109;
+    des_gripper_grasp_pose.pose.orientation.x = 0.166;
+    des_gripper_grasp_pose.pose.orientation.y = 0.648;
+    des_gripper_grasp_pose.pose.orientation.z = 0.702;
+    des_gripper_grasp_pose.pose.orientation.w = 0.109;
     planner_rtn_code = g_arm_motion_commander_ptr->rt_arm_plan_path_current_to_goal_pose(des_gripper_grasp_pose);
     g_arm_motion_commander_ptr->rt_arm_execute_planned_path();
     
@@ -140,10 +140,10 @@ void ObjectGrabber::vertical_cylinder_power_grasp(geometry_msgs::PoseStamped obj
     //depart vertically:
     des_gripper_depart_pose.header.frame_id = "torso";
     des_gripper_depart_pose.pose = g_arm_motion_commander_ptr->transformEigenAffine3dToPose(a_gripper_depart_);
-    des_gripper_depart_pose.pose.orientaion.x = 0.166;
-    des_gripper_depart_pose.pose.orientaion.y = 0.648;
-    des_gripper_depart_pose.pose.orientaion.z = 0.702;
-    des_gripper_depart_pose.pose.orientaion.w = 0.109;
+    des_gripper_depart_pose.pose.orientation.x = 0.166;
+    des_gripper_depart_pose.pose.orientation.y = 0.648;
+    des_gripper_depart_pose.pose.orientation.z = 0.702;
+    des_gripper_depart_pose.pose.orientation.w = 0.109;
     planner_rtn_code = g_arm_motion_commander_ptr->rt_arm_plan_path_current_to_goal_pose(des_gripper_depart_pose);
     g_arm_motion_commander_ptr->rt_arm_execute_planned_path();
 } 
