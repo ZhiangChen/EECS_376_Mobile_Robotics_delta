@@ -162,6 +162,10 @@ void ObjectGrabber::executeCB(const actionlib::SimpleActionServer<object_grabber
      grab_result_.return_code = object_grabber::object_grabberResult::OBJECT_ACQUIRED; 
      object_grabber_as_.setSucceeded(grab_result_);
      break;
+    case object_grabber::object_grabberGoal::PREPOSE:
+    	g_arm_motion_commander_ptr->plan_move_to_pre_pose();
+    	g_arm_motion_commander_ptr->rt_arm_execute_planned_path();
+    break;
    default:
              ROS_WARN("this object ID is not implemented");
              grab_result_.return_code = object_grabber::object_grabberResult::FAILED_OBJECT_UNKNOWN; 

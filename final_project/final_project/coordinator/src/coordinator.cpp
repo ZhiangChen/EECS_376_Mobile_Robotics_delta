@@ -136,7 +136,24 @@ int main(int argc, char** argv) {
     }
 
     //  IF HERE, START THE FETCH BEHAVIOR!!
-    
+    // move to preset pose
+    object_grabber_goal.object_code = object_grabber::object_grabberGoal::PREPOSE; //specify the object to be grabbed 
+    object_grabber_goal.object_frame = g_perceived_object_pose;
+    ROS_INFO("sending goal to grab object: ");
+        object_grabber_ac.sendGoal(object_grabber_goal,&objectGrabberDoneCb); 
+        //decide how long to wait...
+        finished_before_timeout = object_grabber_ac.waitForResult(ros::Duration(15.0));
+
+        if (!finished_before_timeout) {
+            ROS_WARN("giving up waiting on result; quitting ");
+            return 1;
+        }
+        if (g_object_grabber_return_code!= object_grabber::object_grabberResult::OBJECT_ACQUIRED) {
+            ROS_WARN("failed to grab object; giving up!");
+            return 1;
+        }
+
+
     ROS_INFO("sending navigation goal: TABLE");
     navigation_goal.location_code=navigator::navigatorGoal::TABLE; //send robot to TABLE
         navigator_ac.sendGoal(navigation_goal,&navigatorDoneCb); // we could also name additional callback functions here, if desired
@@ -160,7 +177,7 @@ int main(int argc, char** argv) {
     //try to find the object:
         object_finder_ac.sendGoal(object_finder_goal,&objectFinderDoneCb); 
         //decide how long we will wait
-        finished_before_timeout = object_finder_ac.waitForResult(ros::Duration(5.0));
+        finished_before_timeout = object_finder_ac.waitForResult(ros::Duration(20.0));
         //bool finished_before_timeout = action_client.waitForResult(); // wait forever...
         if (!finished_before_timeout) {
             ROS_WARN("giving up waiting on result ");
@@ -177,7 +194,7 @@ int main(int argc, char** argv) {
     ROS_INFO("sending goal to grab object: ");
         object_grabber_ac.sendGoal(object_grabber_goal,&objectGrabberDoneCb); 
         //decide how long to wait...
-        finished_before_timeout = object_grabber_ac.waitForResult(ros::Duration(10.0));
+        finished_before_timeout = object_grabber_ac.waitForResult(ros::Duration(20.0));
 
         if (!finished_before_timeout) {
             ROS_WARN("giving up waiting on result; quitting ");
