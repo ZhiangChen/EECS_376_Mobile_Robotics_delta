@@ -168,7 +168,8 @@ int main(int argc, char** argv) {
             return 1;
         }
                 
-        ros::Duration(5.0).sleep();        
+    ros::Duration(10.0).sleep(); 
+    ROS_INFO("Start searching can...");       
     //assume we have reached the table; look for the Coke can:
     object_finder_goal.object_id=object_finder::objectFinderGoal::COKE_CAN_UPRIGHT; //specify object of interest
     object_finder_goal.known_surface_ht=true; //we'll say we know the table height
@@ -176,7 +177,7 @@ int main(int argc, char** argv) {
     //try to find the object:
         object_finder_ac.sendGoal(object_finder_goal,&objectFinderDoneCb); 
         //decide how long we will wait
-        finished_before_timeout = object_finder_ac.waitForResult(ros::Duration(20.0));
+        finished_before_timeout = object_finder_ac.waitForResult(ros::Duration(40.0));
         //bool finished_before_timeout = action_client.waitForResult(); // wait forever...
         if (!finished_before_timeout) {
             ROS_WARN("giving up waiting on result ");
