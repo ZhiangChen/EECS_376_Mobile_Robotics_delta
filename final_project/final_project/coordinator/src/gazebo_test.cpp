@@ -91,7 +91,6 @@ int main(int argc, char** argv) {
         ROS_INFO("retrying...");
     }
     ROS_INFO("connected to object_grabber action server"); // if here, then we connected to the server; 
-    ROS_ERROR("...");
     //specifications for what we are seeking:
     object_finder::objectFinderGoal object_finder_goal;   
     object_grabber::object_grabberGoal object_grabber_goal;

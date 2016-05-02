@@ -40,6 +40,7 @@ It provides the functions to search a coke can on the table.
 #include <pcl-1.7/pcl/impl/point_types.hpp>
 
 #define Z_OFFSET 0.05
+#define X_OFFSET 0.05
 
 //#define Gazebo_baxter
 

@@ -252,6 +252,7 @@ bool CanSearcher::searchCan2(Eigen::Vector3f &centroid)
     centroid = t_centroid;
     centroid[2] -= CanHeight/2; 
     centroid[2] += Z_OFFSET;
+    centroid[0] += Z_OFFSET;
     ROS_INFO_STREAM("The centroid of the can is "<<centroid.transpose());
     return true;
 }

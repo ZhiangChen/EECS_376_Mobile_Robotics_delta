@@ -107,7 +107,6 @@ int main(int argc, char** argv) {
         ROS_INFO("retrying...");
     }
     ROS_INFO("connected to object_grabber action server"); // if here, then we connected to the server; 
-    ROS_ERROR("!!!");
     //do the same with the "navigator" action server
      // attempt to connect to the server:
     ROS_INFO("waiting for server: ");

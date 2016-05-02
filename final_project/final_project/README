@@ -5,6 +5,7 @@ rosrun baxter_trajectory_streamer left_arm_as
 rosrun baxter_trajectory_streamer rt_arm_as
 rosrun cartesian_planner baxter_cart_move_as
 rosrun object_grabber object_grabber_as
+rosrun baxter_gripper orig_dynamixel_motor_node -tty 0
 ## Jinx
 roslaunch cwru_base start_base.launch
 rosrun navigator navigator
