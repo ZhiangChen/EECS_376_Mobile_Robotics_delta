@@ -30,7 +30,7 @@ int main(int argc, char** argv) {
     ros::NodeHandle nh;
     CanSearcher Can_searcher(&nh);
 
-    Can_searcher.takeAPic();
+    
     
     Eigen::Affine3f A_plane_wrt_camera;
     A_plane_wrt_camera.matrix()(0,0)=0.999679;
@@ -55,25 +55,30 @@ int main(int argc, char** argv) {
     
     //Can_searcher.setAffine(A_plane_wrt_camera);
 
-    bool got_table;
-    bool got_can;
-    Eigen::Vector3f can_centroid;
-    got_table = Can_searcher.searchTable();
-    if (got_table)
-    {
-        got_can = Can_searcher.searchCan2(can_centroid);
-    }
-    if (got_can)
-    {
-        ROS_INFO("Got the coke can");
-        ROS_INFO_STREAM("Its centroid is"<<can_centroid.transpose());        
-    }
+ 
 
-    Can_searcher.savePCD();
+    //Can_searcher.savePCD();
     // Eigen::Affine3f af;
     // Can_searcher.setAffine(af);
-
+    char cmd;
     while (ros::ok()) {
+        std::cout<<"Input any to continue: ";
+        std::cin>>cmd;
+
+        Can_searcher.takeAPic();
+        bool got_table;
+        bool got_can;
+        Eigen::Vector3f can_centroid;
+        got_table = Can_searcher.searchTable();
+        if (got_table)
+        {
+            got_can = Can_searcher.searchCan2(can_centroid);
+        }
+        if (got_can)
+        {
+            ROS_INFO("Got the coke can");
+            ROS_INFO_STREAM("Its centroid is"<<can_centroid.transpose());        
+        }
         // publish all pc
         Can_searcher.publishPoints();
         ros::spinOnce(); 

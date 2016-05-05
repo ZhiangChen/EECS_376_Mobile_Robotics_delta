@@ -39,10 +39,9 @@ It provides the functions to search a coke can on the table.
 #include <pcl_ros/transforms.h>
 #include <pcl-1.7/pcl/impl/point_types.hpp>
 
-#define Z_OFFSET 0.05
-#define X_OFFSET 0.05
 
-//#define Gazebo_baxter
+
+#define Gazebo_baxter
 
 #ifndef Gazebo_baxter
 // baxter
@@ -59,7 +58,8 @@ It provides the functions to search a coke can on the table.
 #define TableLength 1.0
 #define TableWidth 1.0
 #define CanHeight 0.11
-
+#define Z_OFFSET 0.05
+#define X_OFFSET 0.05
 #else 
 // simulator
 #define TableHeight -0.155
@@ -75,7 +75,8 @@ It provides the functions to search a coke can on the table.
 #define TableLength 0.7
 #define TableWidth 1.0
 #define CanHeight 0.22
-
+#define Z_OFFSET 0.0
+#define X_OFFSET 0.0
 #endif
 
 class CanSearcher

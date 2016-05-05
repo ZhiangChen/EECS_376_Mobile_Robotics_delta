@@ -85,7 +85,6 @@ bool ObjectFinder::find_upright_coke_can(float surface_height,geometry_msgs::Pos
     object_pose.pose.orientation.y = 0.648;
     object_pose.pose.orientation.z = 0.702;
     object_pose.pose.orientation.w = 0.109;
-
     return found_object;
 }
 

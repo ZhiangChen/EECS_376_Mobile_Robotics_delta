@@ -109,7 +109,7 @@ int main(int argc, char** argv) {
     // move to preset pose
     object_grabber_goal.object_code = object_grabber::object_grabberGoal::PREPOSE; //specify the object to be grabbed 
     object_grabber_goal.object_frame = g_perceived_object_pose;
-    ROS_INFO("sending goal to prepose... ");
+    ROS_INFO("sending goal to grab object: ");
         object_grabber_ac.sendGoal(object_grabber_goal,&objectGrabberDoneCb); 
         //decide how long to wait...
         finished_before_timeout = object_grabber_ac.waitForResult(ros::Duration(20.0));

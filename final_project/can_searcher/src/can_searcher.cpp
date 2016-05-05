@@ -45,6 +45,7 @@ void CanSearcher::takeAPic()
 {
 	// check the kinect points
 	ros::spinOnce();
+	Pclutils_.reset_got_kinect_cloud(); 
 	while(!Pclutils_.got_kinect_cloud())
 	{
 		ROS_WARN("Wait for kinect ...");
@@ -52,7 +53,7 @@ void CanSearcher::takeAPic()
 		ros::spinOnce();
 	}
 	ROS_INFO("Connected kinect.");
-	Pclutils_.reset_got_kinect_cloud();
+	
 
 	// get the kinect points
 	pcl::PointCloud<pcl::PointXYZRGB>::Ptr kinect_ptr(new pcl::PointCloud<pcl::PointXYZRGB>);
