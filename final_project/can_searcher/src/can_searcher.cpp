@@ -49,8 +49,9 @@ void CanSearcher::takeAPic()
 	while(!Pclutils_.got_kinect_cloud())
 	{
 		ROS_WARN("Wait for kinect ...");
-		ros::Duration(0.5).sleep();
 		ros::spinOnce();
+		ros::Duration(1.0).sleep();
+		
 	}
 	ROS_INFO("Connected kinect.");
 	
@@ -253,6 +254,7 @@ bool CanSearcher::searchCan2(Eigen::Vector3f &centroid)
     centroid = t_centroid;
     centroid[2] -= CanHeight/2; 
     centroid[2] += Z_OFFSET;
+    centroid[1] += Y_OFFSET;
     centroid[0] += Z_OFFSET;
     ROS_INFO_STREAM("The centroid of the can is "<<centroid.transpose());
     return true;

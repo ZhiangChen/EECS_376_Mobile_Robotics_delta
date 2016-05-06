@@ -41,7 +41,7 @@ It provides the functions to search a coke can on the table.
 
 
 
-#define Gazebo_baxter
+//#define Gazebo_baxter
 
 #ifndef Gazebo_baxter
 // baxter
@@ -58,8 +58,9 @@ It provides the functions to search a coke can on the table.
 #define TableLength 1.0
 #define TableWidth 1.0
 #define CanHeight 0.11
-#define Z_OFFSET 0.05
-#define X_OFFSET 0.05
+#define Z_OFFSET 0.1
+#define X_OFFSET -0.05
+#define Y_OFFSET -0.12
 #else 
 // simulator
 #define TableHeight -0.155
